@@ -1,3 +1,0 @@
-[submodule "apps/base-app"]
-	path = apps/base-app
-	url = https://github.com/meeovi/base-app
