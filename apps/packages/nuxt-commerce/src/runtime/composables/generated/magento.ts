@@ -1,0 +1,11 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { useCommerce } from '../useCommerce'
+
+/**
+ * Use Magento-specific commerce operations
+ * @deprecated Use useCommerce() directly - provider is configured at module level
+ */
+export function useMagento(opts?: any) {
+  return useCommerce()
+}
+export default useMagento

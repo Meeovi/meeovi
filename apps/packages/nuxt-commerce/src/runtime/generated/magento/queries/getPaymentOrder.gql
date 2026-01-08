@@ -1,0 +1,7 @@
+query getPaymentOrder($cartId: String!, $id: String!){
+    getPaymentOrder(cartId: $cartId, id: $id){
+        id
+        mp_order_id
+        status
+    }
+}

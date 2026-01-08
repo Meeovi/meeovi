@@ -1,0 +1,11 @@
+mutation createProductReview($input: CreateProductReviewInput!){
+    createProductReview(input: $input){
+        review{
+            average_rating
+            created_at
+            nickname
+            summary
+            text
+        }
+    }
+}

@@ -1,0 +1,21 @@
+mutation completeOrder($input: CompleteOrderInput){
+    completeOrder(input: $input){
+        errors{
+            code
+            message
+        }
+        orderV2{
+            available_actions
+            carrier
+            email
+            id
+            is_virtual
+            number
+            order_date
+            order_status_change_date
+            shipping_method
+            status
+            token
+        }
+    }
+}

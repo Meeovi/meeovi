@@ -1,0 +1,14 @@
+mutation updateCartItems($input: UpdateCartItemsInput){
+    updateCartItems(input: $input){
+        cart{
+            email
+            id
+            is_virtual
+            total_quantity
+        }
+        errors{
+            code
+            message
+        }
+    }
+}

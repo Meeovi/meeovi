@@ -1,0 +1,3 @@
+[build]
+command = "npx turbo run build --filter=@meeovi/app-base"
+publish = ".output/public"

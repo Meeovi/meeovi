@@ -1,0 +1,3 @@
+mutation deleteStripePaymentMethod($input: StripePaymentMethodId!){
+    deleteStripePaymentMethod(input: $input)
+}

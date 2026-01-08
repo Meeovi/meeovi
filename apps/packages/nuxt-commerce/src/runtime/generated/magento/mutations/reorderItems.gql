@@ -1,0 +1,15 @@
+mutation reorderItems($orderNumber: String!){
+    reorderItems(orderNumber: $orderNumber){
+        cart{
+            email
+            id
+            is_virtual
+            total_quantity
+        }
+        userInputErrors{
+            code
+            message
+            path
+        }
+    }
+}

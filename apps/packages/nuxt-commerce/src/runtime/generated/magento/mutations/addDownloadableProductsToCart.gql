@@ -1,0 +1,10 @@
+mutation addDownloadableProductsToCart($input: AddDownloadableProductsToCartInput){
+    addDownloadableProductsToCart(input: $input){
+        cart{
+            email
+            id
+            is_virtual
+            total_quantity
+        }
+    }
+}

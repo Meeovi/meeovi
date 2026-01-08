@@ -1,0 +1,10 @@
+mutation addSimpleProductsToCart($input: AddSimpleProductsToCartInput){
+    addSimpleProductsToCart(input: $input){
+        cart{
+            email
+            id
+            is_virtual
+            total_quantity
+        }
+    }
+}

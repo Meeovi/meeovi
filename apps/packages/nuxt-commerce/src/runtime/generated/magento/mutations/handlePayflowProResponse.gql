@@ -1,0 +1,10 @@
+mutation handlePayflowProResponse($input: PayflowProResponseInput!){
+    handlePayflowProResponse(input: $input){
+        cart{
+            email
+            id
+            is_virtual
+            total_quantity
+        }
+    }
+}

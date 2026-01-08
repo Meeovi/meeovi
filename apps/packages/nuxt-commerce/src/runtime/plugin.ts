@@ -1,0 +1,93 @@
+import { defineNuxtPlugin, useRuntimeConfig } from 'nuxt/app'
+import { createProvider } from './providers'
+import type { CommerceProvider, ProviderContext } from './types'
+
+// Register providers
+import './providers'
+
+declare module 'nuxt/app' {
+  interface NuxtApp {
+    $commerce: CommerceProvider
+  }
+}
+
+declare module 'vue' {
+  interface ComponentCustomProperties {
+    $commerce: CommerceProvider
+  }
+}
+
+export default defineNuxtPlugin(() => {
+  const config = useRuntimeConfig()
+
+  // Get provider configuration
+  const providerName = config.public.commerce?.provider || 'magento'
+
+  // Build provider context based on selected provider
+  const ctx: ProviderContext = {
+    provider: providerName as any,
+    endpoint: getProviderEndpoint(providerName, config),
+    token: getProviderToken(providerName, config),
+    storeCode: config.public.commerce?.storeCode,
+    apiVersion: config.public.commerce?.apiVersion,
+    logger: {
+      info: (message: string, ...args: unknown[]) => {
+        if (process.env.NODE_ENV === 'development') {
+          console.log(`[Commerce] ${message}`, ...args)
+        }
+      },
+      error: (message: string, ...args: unknown[]) => {
+        console.error(`[Commerce] ${message}`, ...args)
+      },
+      warn: (message: string, ...args: unknown[]) => {
+        console.warn(`[Commerce] ${message}`, ...args)
+      },
+    },
+  }
+
+  try {
+    const provider = createProvider(providerName, ctx)
+
+    return {
+      provide: {
+        commerce: provider,
+      },
+    }
+  }
+  catch (error) {
+    console.error('[Commerce Plugin] Failed to initialize commerce provider:', error)
+    throw error
+  }
+})
+
+/**
+ * Get the appropriate endpoint based on provider
+ */
+function getProviderEndpoint(provider: string, config: any): string {
+  switch (provider) {
+    case 'magento':
+      return config.public.commerce?.magentoEndpoint || ''
+    case 'shopify':
+      return config.public.commerce?.shopifyEndpoint || ''
+    case 'woocommerce':
+      return config.public.commerce?.woocommerceEndpoint || ''
+    default:
+      return config.public.commerce?.endpoint || ''
+  }
+}
+
+/**
+ * Get the appropriate token based on provider
+ */
+function getProviderToken(provider: string, config: any): string | undefined {
+  switch (provider) {
+    case 'magento':
+      return config.commerce?.magentoToken
+    case 'shopify':
+      return config.public.commerce?.shopifyToken
+    case 'woocommerce':
+      return config.commerce?.woocommerceToken
+    default:
+      return config.commerce?.token
+  }
+}

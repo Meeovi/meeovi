@@ -1,0 +1,16 @@
+/********************** Main CSS *************/
+
+body {
+    margin: 0;
+}
+
+.lowerBarBtn {
+    position: relative;
+    top: 5px;
+    right: 5px;
+    float: right !important;
+}
+
+.sliderLists {
+    padding: 15px;
+}

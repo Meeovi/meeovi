@@ -1,0 +1,10 @@
+mutation setShippingMethodsOnCart($input: SetShippingMethodsOnCartInput){
+    setShippingMethodsOnCart(input: $input){
+        cart{
+            email
+            id
+            is_virtual
+            total_quantity
+        }
+    }
+}

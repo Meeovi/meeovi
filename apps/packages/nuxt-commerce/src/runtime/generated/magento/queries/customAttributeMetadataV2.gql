@@ -1,0 +1,18 @@
+query customAttributeMetadataV2($attributes: [AttributeInput!]){
+    customAttributeMetadataV2(attributes: $attributes){
+        errors{
+            message
+            type
+        }
+        items{
+            code
+            default_value
+            entity_type
+            frontend_class
+            frontend_input
+            is_required
+            is_unique
+            label
+        }
+    }
+}

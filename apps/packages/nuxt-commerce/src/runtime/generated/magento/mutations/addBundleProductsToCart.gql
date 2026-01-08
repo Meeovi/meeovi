@@ -1,0 +1,10 @@
+mutation addBundleProductsToCart($input: AddBundleProductsToCartInput){
+    addBundleProductsToCart(input: $input){
+        cart{
+            email
+            id
+            is_virtual
+            total_quantity
+        }
+    }
+}

@@ -1,0 +1,9 @@
+query lofGiftCardInfo($code: String!){
+    lofGiftCardInfo(code: $code){
+        balance{
+            currency
+            value
+        }
+        code
+    }
+}

@@ -1,0 +1,7 @@
+query getPaymentSDK($location: PaymentLocation!){
+    getPaymentSDK(location: $location){
+        sdkParams{
+            code
+        }
+    }
+}

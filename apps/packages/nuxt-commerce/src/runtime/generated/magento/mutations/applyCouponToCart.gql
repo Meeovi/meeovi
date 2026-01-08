@@ -1,0 +1,10 @@
+mutation applyCouponToCart($input: ApplyCouponToCartInput){
+    applyCouponToCart(input: $input){
+        cart{
+            email
+            id
+            is_virtual
+            total_quantity
+        }
+    }
+}
