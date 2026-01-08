@@ -1,0 +1,14 @@
+mutation updateProductsInWishlist($wishlistId: ID!, $wishlistItems: [WishlistItemUpdateInput!]!){
+    updateProductsInWishlist(wishlistId: $wishlistId, wishlistItems: $wishlistItems){
+        user_errors{
+            code
+            message
+        }
+        wishlist{
+            id
+            items_count
+            sharing_code
+            updated_at
+        }
+    }
+}

@@ -1,0 +1,10 @@
+mutation addConfigurableProductsToCart($input: AddConfigurableProductsToCartInput){
+    addConfigurableProductsToCart(input: $input){
+        cart{
+            email
+            id
+            is_virtual
+            total_quantity
+        }
+    }
+}

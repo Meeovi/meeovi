@@ -1,0 +1,10 @@
+mutation removeItemFromCart($input: RemoveItemFromCartInput){
+    removeItemFromCart(input: $input){
+        cart{
+            email
+            id
+            is_virtual
+            total_quantity
+        }
+    }
+}

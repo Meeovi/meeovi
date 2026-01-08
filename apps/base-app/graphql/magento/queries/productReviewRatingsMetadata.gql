@@ -1,0 +1,8 @@
+query productReviewRatingsMetadata{
+    productReviewRatingsMetadata{
+        items{
+            id
+            name
+        }
+    }
+}

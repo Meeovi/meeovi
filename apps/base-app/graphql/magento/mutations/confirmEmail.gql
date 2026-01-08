@@ -1,0 +1,21 @@
+mutation confirmEmail($input: ConfirmEmailInput!){
+    confirmEmail(input: $input){
+        customer{
+            allow_remote_shopping_assistance
+            confirmation_status
+            created_at
+            date_of_birth
+            default_billing
+            default_shipping
+            email
+            firstname
+            gender
+            is_subscribed
+            lastname
+            middlename
+            prefix
+            suffix
+            taxvat
+        }
+    }
+}

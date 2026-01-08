@@ -1,0 +1,23 @@
+schema:
+  - "https://meeovi.com/graphql":
+      headers:
+        Content-Type: application/json
+
+documents:
+  - modules/nuxt-commerce/src/runtime/generated/magento/queries/**/*.gql
+  - modules/nuxt-commerce/src/runtime/generated/magento/mutations/**/*.gql
+
+generates:
+  "modules/nuxt-commerce/src/runtime/generated/magento/graphql.ts":
+    plugins:
+      - "typescript"
+      - "typescript-operations"
+      - "typed-document-node"
+      - "typescript-vue-apollo"
+    config:
+      avoidOptionals: true
+      skipTypename: false
+      enumsAsTypes: true
+      scalars:
+        DateTime: string
+        JSON: any

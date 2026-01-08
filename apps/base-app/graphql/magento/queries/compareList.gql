@@ -1,0 +1,13 @@
+query compareList($uid: ID!){
+    compareList(uid: $uid){
+        attributes{
+            code
+            label
+        }
+        item_count
+        items{
+            uid
+        }
+        uid
+    }
+}

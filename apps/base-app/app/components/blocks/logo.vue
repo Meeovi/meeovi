@@ -1,0 +1,41 @@
+<template>
+    <div>
+        <v-app-bar-title v-if="blocksSiteoverview?.media?.directus_files_id?.filename_disk">
+            <NuxtLink class="logobrand" href="/">
+                <v-icon start color="orange">
+                    <img :src="`${$directus.url}assets/${blocksSiteoverview?.media?.[0]?.directus_files_id?.filename_disk}`"
+                        :alt="blocksSiteoverview?.name" />
+                </v-icon>
+                <p class="logotext">{{ blocksSiteoverview?.name }}<!--Meeovi--></p>
+            </NuxtLink>
+        </v-app-bar-title>
+
+        <v-app-bar-title v-else>
+            <NuxtLink class="logobrand" href="/">
+                <v-icon start color="orange">
+                    <img src="/images/logo512alpha.png" :alt="blocksSiteoverview?.name" />
+                </v-icon>
+                <p class="logotext">{{ blocksSiteoverview?.name }}<!--Meeovi--></p>
+            </NuxtLink>
+        </v-app-bar-title>
+    </div>
+</template>
+
+<script setup>
+    import {
+        ref
+    } from 'vue'
+
+    const {
+        $directus,
+        $readItem
+    } = useNuxtApp()
+
+    const {
+        data: blocksSiteoverview
+    } = await useAsyncData('blocksSiteoverview', () => {
+        return $directus.request($readItem('page_blocks', '5', {
+            fields: ['*', 'media.*.*'],
+        }))
+    })
+</script>

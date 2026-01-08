@@ -1,0 +1,10 @@
+mutation createGuestCart($input: CreateGuestCartInput){
+    createGuestCart(input: $input){
+        cart{
+            email
+            id
+            is_virtual
+            total_quantity
+        }
+    }
+}

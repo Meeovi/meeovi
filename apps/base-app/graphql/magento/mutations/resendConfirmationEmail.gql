@@ -1,0 +1,3 @@
+mutation resendConfirmationEmail($email: String!){
+    resendConfirmationEmail(email: $email)
+}

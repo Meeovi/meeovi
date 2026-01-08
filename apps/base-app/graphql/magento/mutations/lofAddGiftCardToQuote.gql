@@ -1,0 +1,6 @@
+mutation lofAddGiftCardToQuote($cart_id: String!, $code: String!){
+    lofAddGiftCardToQuote(cart_id: $cart_id, code: $code){
+        code
+        message
+    }
+}

@@ -1,0 +1,30 @@
+﻿/* eslint-disable @typescript-eslint/no-explicit-any */
+interface MagentoClientConfig {
+  endpoint: string
+  token?: string
+}
+
+interface MagentoClient {
+  request<T>(document: any, variables?: any): Promise<T>
+}
+
+export const createMagentoClient = (config: MagentoClientConfig): MagentoClient => {
+  return {
+    async request<T>(document: any, variables?: any): Promise<T> {
+      const response = await fetch(config.endpoint, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          ...(config.token && { Authorization: `Bearer ${config.token}` }),
+        },
+        body: JSON.stringify({
+          query: document,
+          variables,
+        }),
+      })
+
+      const result = await response.json()
+      return result.data
+    },
+  }
+}

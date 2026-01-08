@@ -1,0 +1,43 @@
+{
+   "name": "@meeovi/app-base",
+   "version": "0.0.8",
+   "type": "module",
+   "description": "This is a base template for my projects.",
+   "author": "Sebastian Hilton (https://www.sebastianhilton.com)",
+   "homepage": "https://www.sebastianhilton.com",
+   "repository": {
+      "type": "git",
+      "url": "git+https://github.com/Meeovi/base-app"
+   },
+   "bugs": {
+      "url": "https://github.com/Meeovi/base-app/issues"
+   },
+   "license": "MIT",
+   "private": true,
+   "scripts": {
+      "starter-commit": "git add . && git commit -m \"ready for update\"",
+      "starter-update": "git pull \"https://github.com/Meeovi/base-app\"",
+      "build": "nuxt build",
+      "dev": "nuxt dev --port 3011 --host 0.0.0.0",
+      "ts-node": "ts-node -r tsconfig-paths/register --compiler-options '{\"module\":\"CommonJS\"}'",
+      "generate": "nuxt generate",
+      "check-types": "tsc --noEmit",
+      "preview": "nuxt preview",
+      "codegen:commerce": "graphql-codegen --config codegen.yml",
+      "gqlg": "npx gqlg --schemaFilePath graphql/magento/schema.graphql --destDirPath graphql/magento --depthLimit 2"
+   },
+   "dependencies": {
+      "@nuxtjs/seo": "^3.2.2",
+      "nuxt": "^4.2.2"
+   },
+   "devDependencies": {
+      "@types/node": "^24.10.3",
+      "tsx": "^4.20.6",
+      "turbo": "^2.7.3",
+      "typescript": "^5.9.3"
+   },
+   "packageManager": "npm@11.7.0",
+   "workspaces": [
+    "packages/*"
+  ]
+}

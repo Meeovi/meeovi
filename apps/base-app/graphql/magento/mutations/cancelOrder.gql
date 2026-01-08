@@ -1,0 +1,22 @@
+mutation cancelOrder($input: CancelOrderInput!){
+    cancelOrder(input: $input){
+        error
+        errorV2{
+            code
+            message
+        }
+        order{
+            available_actions
+            carrier
+            email
+            id
+            is_virtual
+            number
+            order_date
+            order_status_change_date
+            shipping_method
+            status
+            token
+        }
+    }
+}

@@ -1,0 +1,38 @@
+﻿export interface CommerceImage {
+  filename_disk: string | null
+}
+
+export interface CommerceBrand {
+  brands_id: {
+    name: string
+    slug: string
+  }
+}
+
+export interface CommerceCurrency {
+  currency_id: {
+    symbol: string
+  }
+}
+
+export interface CommerceProduct {
+  id: string
+  name: string
+  image: CommerceImage
+  rating: number | null
+  brands: CommerceBrand[]
+  currency: CommerceCurrency[]
+  price: number
+}
+
+export interface CommerceListParams {
+  search?: string
+  page?: number
+  pageSize?: number
+  [key: string]: unknown
+}
+
+export interface CommerceProvider {
+  getProduct(id: string): Promise<CommerceProduct | null>
+  getProducts(params?: CommerceListParams): Promise<CommerceProduct[]>
+}

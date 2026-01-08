@@ -1,0 +1,13 @@
+mutation addProductsToCompareList($input: AddProductsToCompareListInput){
+    addProductsToCompareList(input: $input){
+        attributes{
+            code
+            label
+        }
+        item_count
+        items{
+            uid
+        }
+        uid
+    }
+}

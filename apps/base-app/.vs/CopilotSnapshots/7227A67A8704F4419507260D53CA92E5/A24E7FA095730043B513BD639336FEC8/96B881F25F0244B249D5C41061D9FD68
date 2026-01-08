@@ -1,0 +1,50 @@
+﻿/* eslint-disable @typescript-eslint/no-unused-vars */
+import { defineNuxtPlugin, useRuntimeConfig } from 'nuxt/app'
+import { createProvider, type ProviderContext } from './providers/index.js'
+
+declare module 'nuxt/app' {
+  interface NuxtApp {
+    $commerce: ReturnType<typeof createProvider>
+  }
+}
+
+declare module 'vue' {
+  interface ComponentCustomProperties {
+    $commerce: ReturnType<typeof createProvider>
+  }
+}
+
+type PublicRuntimeConfig = {
+  commerce?: {
+    provider?: string
+    magentoEndpoint?: string
+    magentoToken?: string
+  }
+  directus?: {
+    url?: string
+    token?: string
+  }
+}
+
+export default defineNuxtPlugin(() => {
+  const config = useRuntimeConfig()
+
+  const publicConfig = config.public as PublicRuntimeConfig
+
+  const providerName = (publicConfig.commerce?.provider ?? 'magento') as string
+
+  const ctx: ProviderContext = {
+    magentoEndpoint: publicConfig.commerce?.magentoEndpoint,
+    magentoToken: publicConfig.commerce?.magentoToken,
+    directusUrl: publicConfig.directus?.url,
+    directusToken: publicConfig.directus?.token,
+  }
+
+  const provider = createProvider(providerName, ctx)
+
+  return {
+    provide: {
+      commerce: provider,
+    },
+  }
+})

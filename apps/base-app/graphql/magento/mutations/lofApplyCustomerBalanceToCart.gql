@@ -1,0 +1,6 @@
+mutation lofApplyCustomerBalanceToCart($cart_id: String!){
+    lofApplyCustomerBalanceToCart(cart_id: $cart_id){
+        code
+        message
+    }
+}

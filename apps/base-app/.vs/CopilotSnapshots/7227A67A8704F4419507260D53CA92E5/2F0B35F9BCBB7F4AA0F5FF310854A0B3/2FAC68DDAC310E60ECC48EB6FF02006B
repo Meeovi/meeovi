@@ -1,0 +1,103 @@
+﻿## This Application is in Alpha Release ##
+
+# Base App - Meeovi Framework
+
+A powerful, consistent, and flexible starter template with tons of integrations. 
+
+## Features include:
+
+- Supports GraphQL and REST APIs
+- Extendible system that supports Nuxt.js, Vue.js modules
+- WordPress and WooCommerce integration
+- Meilisearch and Instantsearch.js support
+- Custom error page
+- Vuetify, FontAwesome integration for design system
+- Google Tag Manager, Google Analytics integration
+- Stripe integration for payments and commerce
+- Directus integration for content management system
+- Multi-layer architecture with commerce, social, lists, and more
+- i18n support with multiple languages
+- Security features with nuxt-security module
+
+## Prerequisites:
+
+You will need:
+
+- **Git** - https://git-scm.com/
+- **Node.js** (v18 or higher) - https://nodejs.org/en/
+- **PostgreSQL** (recommended as the database)
+
+## Steps to Install - 10 Minute Install
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/Meeovi/base-app
+   ```
+
+2. Navigate to the project directory:
+   ```bash
+   cd base-app
+   ```
+
+3. Install dependencies:
+   ```bash
+   npm install
+   ```
+
+4. Set up environment variables:
+   ```bash
+   cp .env.example .env
+   ```
+   Then edit `.env` with your configuration values.
+
+5. Run the development server:
+   ```bash
+   npm run dev
+   ```
+
+The application will be available at: http://localhost:3011
+
+## Available Scripts
+
+- `npm run dev` - Start development server
+- `npm run build` - Build for production
+- `npm run generate` - Generate static site
+- `npm run preview` - Preview production build
+- `npm run typecheck` - Run TypeScript type checking
+- `npm run codegen:commerce` - Generate GraphQL types
+
+## Project Structure
+
+This is a monorepo with multiple layers:
+- `layers/shared-app` - Shared components and utilities
+- `layers/commerce-app` - E-commerce features
+- `layers/social-app` - Social media features
+- `layers/lists-app` - List management features
+- `layers/departments-app` - Department-specific features
+- `layers/seller-dashboard-app` - Seller management features
+
+## Configuration
+
+Rename `.env.example` file to `.env` and configure:
+
+- **Database**: Add your database credentials to `DATABASE_URL`
+  ```
+  DATABASE_URL=postgresql://username:password@host:5432/database
+  ```
+
+- **API Endpoints**: Configure your Directus, Magento, and other service URLs
+
+- **API Keys**: Add your Stripe, PayPal, Google Analytics, and other service keys
+
+## Documentation
+
+For more information, visit: https://www.sebastianhilton.com
+
+## License
+
+MIT
+
+## Support
+
+For issues and questions, please visit: https://github.com/Meeovi/base-app/issues
+

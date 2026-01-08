@@ -1,0 +1,9 @@
+mutation assignCompareListToCustomer($uid: ID!){
+    assignCompareListToCustomer(uid: $uid){
+        compare_list{
+            item_count
+            uid
+        }
+        result
+    }
+}

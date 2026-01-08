@@ -1,0 +1,13 @@
+mutation createCompareList($input: CreateCompareListInput){
+    createCompareList(input: $input){
+        attributes{
+            code
+            label
+        }
+        item_count
+        items{
+            uid
+        }
+        uid
+    }
+}

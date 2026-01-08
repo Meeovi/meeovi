@@ -1,0 +1,12 @@
+query getStripeConfiguration{
+    getStripeConfiguration{
+        apiKey
+        appInfo
+        elementsOptions
+        locale
+        options{
+            apiVersion
+            betas
+        }
+    }
+}

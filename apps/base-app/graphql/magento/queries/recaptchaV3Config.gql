@@ -1,0 +1,12 @@
+query recaptchaV3Config{
+    recaptchaV3Config{
+        badge_position
+        failure_message
+        forms
+        is_enabled
+        language_code
+        minimum_score
+        theme
+        website_key
+    }
+}

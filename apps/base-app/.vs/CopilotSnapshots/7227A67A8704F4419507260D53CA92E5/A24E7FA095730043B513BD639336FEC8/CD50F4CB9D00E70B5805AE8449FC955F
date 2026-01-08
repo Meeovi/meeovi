@@ -1,0 +1,8 @@
+﻿import { registerProvider } from './base.js'
+import { createMagentoProvider } from './magento'
+// import { createDirectusProvider } from './directus' // when you have it
+
+registerProvider('magento', createMagentoProvider)
+// registerProvider('directus', createDirectusProvider)
+
+export * from './base.js'
