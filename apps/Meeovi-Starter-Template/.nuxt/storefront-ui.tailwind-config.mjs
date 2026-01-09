@@ -1,0 +1,1 @@
+import { tailwindConfig } from '@storefront-ui/vue/tailwind-config'; export default { presets: [tailwindConfig] }

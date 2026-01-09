@@ -1,0 +1,50 @@
+{
+   "name": "elitenovels",
+   "version": "0.0.9",
+   "description": "This is a template for the Elite Novels.",
+   "author": "Sebastian Hilton (https://www.sebastianhilton.com)",
+   "homepage": "https://www.elitenovels.com",
+   "repository": {
+      "type": "git",
+      "url": "git+https://github.com/Meeovi/elitenovels-frontend"
+   },
+   "bugs": {
+      "url": "https://github.com/Meeovi/elitenovels-frontend/issues"
+   },
+   "license": "MIT",
+   "private": true,
+   "scripts": {
+      "elite-commit": "git add . && git commit -m \"ready for update\"",
+      "elite-update": "git pull \"https://github.com/Meeovi/elitenovels-frontend\"",
+   "build": "nuxt build",
+   "prebuild": "node ./scripts/copy-images.js",
+      "dev": "nuxt dev --port 3010",
+      "ts-node": "ts-node -r tsconfig-paths/register --compiler-options '{\"module\":\"CommonJS\"}'",
+      "generate": "nuxt generate",
+      "preview": "nuxt preview",
+      "analyze": "nuxi analyze",
+      "postinstall": "nuxt prepare"
+   },
+   "dependencies": {
+      "@directus/sdk": "^20.1.0",
+      "@directus/types": "^13.2.3",
+      "@fortawesome/fontawesome-free": "^7.1.0",
+      "@fortawesome/fontawesome-svg-core": "^7.1.0",
+      "@fortawesome/free-solid-svg-icons": "^7.1.0",
+      "@fortawesome/vue-fontawesome": "^3.1.2",
+      "@mdi/font": "^7.4.47",
+      "@nuxt/image": "^1.11.0",
+      "@nuxtjs/leaflet": "^1.3.2",
+      "@pinia/nuxt": "^0.11.1",
+      "@vueuse/core": "^13.5.0",
+      "algoliasearch": "^5.42.0",
+      "eslint": "^9.32.0",
+      "nuxt": "^4.1.3",
+      "pinia": "^3.0.3",
+      "vuetify-nuxt-module": "^0.18.7"
+   },
+   "devDependencies": {
+      "@nuxtjs/turnstile": "^1.0.0",
+      "@storefront-ui/nuxt": "^2.5.4"
+   }
+}
