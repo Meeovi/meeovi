@@ -8,13 +8,39 @@ export default defineNuxtRouteMiddleware(async () => {
   // Don't run on client hydration when server rendered
   if (import.meta.client && nuxtApp.isHydrating && nuxtApp.payload.serverRendered) return
 
-  const { session, clear: clearSession, fetch: fetchSession } = useUserSession()
-  // Ignore if no tokens
-  if (!session.value?.jwt) return
+  // Resolve session from BetterAuth on client, or server getAuthSession on server
+  let sessionVal: any = null
+  let clearSession = async () => {}
+  let fetchSession = async () => null
 
-  const serverEvent = useRequestEvent()
   const runtimeConfig = useRuntimeConfig()
-  const { accessToken, refreshToken } = session.value.jwt
+
+  if (import.meta.server) {
+    try {
+      const event = useRequestEvent()
+      // `getAuthSession` is provided by the server utils
+      const mod = await import('~~/layers/shared/server/utils/auth').catch(() => null)
+      const getAuthSession = mod?.getAuthSession
+      if (getAuthSession) sessionVal = await getAuthSession(event)
+    } catch (e) {
+      // ignore
+    }
+  } else {
+    // client-side auth composable
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const auth: any = (globalThis as any).$useAuth ?? (typeof useAuth !== 'undefined' ? useAuth() : null)
+    if (auth) {
+      fetchSession = async () => { if (typeof auth.fetchSession === 'function') return auth.fetchSession(); if (typeof auth.fetch === 'function') return auth.fetch(); return null }
+      clearSession = async () => { if (typeof auth.signOut === 'function') return auth.signOut(); if (typeof auth.clear === 'function') return auth.clear(); return null }
+      sessionVal = auth.session ? (await auth.session) : null
+    }
+  }
+
+  // If no session or no jwt present, nothing to do
+  const jwt = sessionVal?.jwt
+  if (!jwt) return
+
+  const { accessToken, refreshToken } = jwt
 
   if (!accessToken || !refreshToken) {
     return

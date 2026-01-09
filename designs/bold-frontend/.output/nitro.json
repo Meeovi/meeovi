@@ -1,0 +1,7 @@
+{
+  "date": "2023-03-16T06:44:04.015Z",
+  "preset": "nitro-prerender",
+  "commands": {
+    "preview": "npx serve -s ./public"
+  }
+}

@@ -11,15 +11,24 @@
 </template>
 
 <script setup>
-  import { onMounted } from 'vue'
-  
-  const { user, loggedIn, fetch: fetchUserSession } = useUserSession()
-  
+  import { onMounted, ref, unref, computed } from 'vue'
+
+  // BetterAuth `useAuth()` fallback
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const auth: any = (globalThis as any).$useAuth ?? (typeof useAuth !== 'undefined' ? useAuth() : null)
+
+  const user = ref(null)
+  const loggedIn = computed(() => !!user.value)
+
   // Initialize user on component mount
   onMounted(async () => {
-    const currentUser = await fetchUserSession()
-    if (currentUser) {
-      user.value = currentUser
+    if (auth) {
+      if (auth.user) user.value = unref(auth.user)
+      else if (auth.session) user.value = unref(auth.session)?.user
+      else if (typeof auth.fetchSession === 'function') {
+        await auth.fetchSession()
+        user.value = unref(auth.session)?.user ?? unref(auth.user)
+      }
     }
   })
 </script>

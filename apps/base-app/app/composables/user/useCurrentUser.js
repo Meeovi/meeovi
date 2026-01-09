@@ -1,6 +1,6 @@
 import { ref, onMounted } from 'vue'
 import { createDirectus, rest, staticToken, readMe } from '@directus/sdk'
-import { useRuntimeConfig } from '#imports'
+import { useRuntimeConfig } from 'nuxt/config';
 import { useRouter } from 'vue-router'
 
 export const useCurrentUser = () => {

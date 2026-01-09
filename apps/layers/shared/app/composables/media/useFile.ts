@@ -1,4 +1,4 @@
-import type { FilePlugin } from '../../types'
+import type { FilePlugin } from '../../types/index.d'
 
 export function useFile() {
   const { $file } = useNuxtApp()

@@ -1,5 +1,5 @@
 import { instantMeiliSearch } from '@meilisearch/instant-meilisearch'
-import { useRuntimeConfig } from '#imports';
+import { useRuntimeConfig } from 'nuxt/config';
 
 export default defineNuxtPlugin((nuxtApp) => {
   const config = useRuntimeConfig();

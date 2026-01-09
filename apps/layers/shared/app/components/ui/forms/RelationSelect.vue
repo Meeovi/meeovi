@@ -9,9 +9,6 @@
         onMounted,
         computed
     } from "vue";
-    import {
-        useNuxtApp
-    } from "#app";
 
     const props = defineProps({
         modelValue: {

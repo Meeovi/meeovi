@@ -1,4 +1,4 @@
-import { useRuntimeConfig } from '#imports';
+import { useRuntimeConfig } from 'nuxt/config';
 
 export const getNavigation = async (id) => {
   const config = useRuntimeConfig();

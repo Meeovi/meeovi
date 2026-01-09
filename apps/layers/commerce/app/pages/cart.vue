@@ -52,7 +52,6 @@
   
   import ShippingOptions from '../components/catalog/product/shippingOptions.vue'
   import { ref, computed } from 'vue'
-  import { useRuntimeConfig, useNuxtApp } from '#app'
 
   const cart = useCartStore()
   const loading = ref(false)

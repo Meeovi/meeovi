@@ -8,7 +8,6 @@
   
   <script setup>
   import getActiveOrderQuery from '#graphql/app/commerce/queries/activeOrder.gql';
-  import { useNuxtApp } from '#app';
 
   const nuxtApp = useNuxtApp();
 
@@ -23,7 +22,7 @@
       try {
         const payload = {
           orderCode: order.code,
-          items: (order.lines || []).map((l: any) => ({ sku: l?.productVariant?.sku, quantity: l.quantity }))
+          items: (order.lines || []).map((l) => ({ sku: l?.productVariant?.sku, quantity: l.quantity }))
         };
         const created = await nuxtApp.$createItem('checkout_sessions', payload);
         // support common response shapes

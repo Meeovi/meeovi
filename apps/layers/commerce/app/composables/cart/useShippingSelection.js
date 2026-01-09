@@ -1,5 +1,5 @@
 import { ref, watch } from 'vue'
-import { useNuxtApp } from '#app'
+import { useNuxtApp } from 'nuxt/app'
 import { useCartStore } from '~/app/stores/cart'
 
 export function useShippingSelection(initial = null) {

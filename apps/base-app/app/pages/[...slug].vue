@@ -14,9 +14,7 @@
   import {
     useRoute
   } from 'vue-router'
-  import {
-    useNuxtApp
-  } from '#imports'
+
 
   const route = useRoute()
   const {

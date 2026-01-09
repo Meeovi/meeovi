@@ -1,5 +1,5 @@
 <template>
-  <div class="relative flex w-full max-h-[600px] aspect-[4/3]">
+  <div class="relative flex w-full max-h-[600px] aspect-4/3">
     <v-carousel>
       <v-carousel-item
         v-for="asset in assets"

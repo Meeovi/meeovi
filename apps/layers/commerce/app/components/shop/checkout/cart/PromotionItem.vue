@@ -27,7 +27,7 @@ const removeItem = async () => {
 };
 </script>
 <template>
-  <div class="mr-4 w-24 flex-shrink-0 overflow-hidden">
+  <div class="mr-4 w-24 shrink-0 overflow-hidden">
     <div class="w-26 i-carbon-tag text-3xl"></div>
   </div>
   <div class="flex flex-1 flex-col">

@@ -9,7 +9,7 @@
                     <div class="block__products">
                         <div v-if="product" class="d-sm-flex align-items-center product__item">
                             <!-- Product Image -->
-                            <div class="image__item flex-shrink-0">
+                            <div class="image__item shrink-0">
                                 <NuxtImg :src="product?.featuredAsset?.preview" :alt="product?.name" loading="lazy" />
                             </div>
                             <!-- Product Details -->

@@ -1,13 +1,22 @@
-import { ref, computed } from 'vue'
-import { useNuxtApp, useUserSession } from '#imports'
+import { ref, computed, unref } from 'vue'
+import { useNuxtApp } from 'nuxt/app'
 import useDirectusRequest from '../useDirectusRequest'
+import { useAuth } from '~/composables/globals/useAuth'
 
 export function useMediaCenter() {
-  const session = useUserSession()
+  // Prefer a BetterAuth `useAuth()` composable when available (provided by the auth layer).
+  // Fallback to null if not present so the rest of the composable degrades gracefully.
+  // `useAuth()` typically exposes `user` and `session` refs and a `fetchSession()` method.
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const auth: any = (globalThis as any).$useAuth ?? (typeof useAuth !== 'undefined' ? useAuth() : null)
+
   const user = computed(() => {
-    if (!session) return null
-    if (typeof (session as any).value !== 'undefined') return (session as any).value?.user || null
-    return (session as any).user || null
+    if (!auth) return null
+    // If auth exposes `user` ref directly
+    if (typeof auth.user !== 'undefined') return unref(auth.user) || null
+    // If auth exposes `session` ref containing `{ user }`
+    if (typeof auth.session !== 'undefined') return unref(auth.session)?.user || null
+    return null
   })
   const userId = computed(() => user.value?.id || null)
 
@@ -123,8 +132,8 @@ export function useMediaCenter() {
     if (!userId.value) {
       // Try to fetch session once in case the auth state wasn't loaded yet
       try {
-        const session = useUserSession()
-        if (typeof session.fetch === 'function') await session.fetch()
+        if (auth && typeof auth.fetchSession === 'function') await auth.fetchSession()
+        else if (auth && typeof auth.fetch === 'function') await auth.fetch()
       } catch (_) {}
 
       if (!userId.value) {

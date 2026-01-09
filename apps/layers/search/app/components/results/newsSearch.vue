@@ -29,9 +29,7 @@
     import {
         liteClient as algoliasearch
     } from 'algoliasearch/lite';
-    import {
-        useRuntimeConfig
-    } from '#imports';
+
 
     const config = useRuntimeConfig();
     const searchClient = algoliasearch(config.public.appId, config.public.apiKey);

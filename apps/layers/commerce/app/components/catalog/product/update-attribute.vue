@@ -58,7 +58,7 @@
     import {
         ref
     } from 'vue'
-    import { useRuntimeConfig } from '#imports';
+    
 
     const config = useRuntimeConfig();
     const name = ref('');

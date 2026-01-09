@@ -15,8 +15,20 @@
 
 <script setup>
   import { readMe } from '@directus/sdk'
-  
-  const { user, loggedIn, fetch: fetchUserSession } = useUserSession()
+  import { computed, unref } from 'vue'
+
+  // Prefer BetterAuth `useAuth()` when available
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const auth: any = (globalThis as any).$useAuth ?? (typeof useAuth !== 'undefined' ? useAuth() : null)
+
+  const user = computed(() => {
+    if (!auth) return null
+    if (auth.user) return unref(auth.user) || null
+    if (auth.session) return unref(auth.session)?.user || null
+    return null
+  })
+  const loggedIn = computed(() => !!(auth?.session || auth?.user))
+  const fetchUserSession = async () => { if (auth?.fetchSession) return auth.fetchSession(); if (auth?.fetch) return auth.fetch(); return null }
   const {
     $directus,
     $readItem

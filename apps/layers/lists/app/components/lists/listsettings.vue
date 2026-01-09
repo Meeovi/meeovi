@@ -78,7 +78,7 @@
   import {
       ref
   } from 'vue'
-  import { useRuntimeConfig } from '#imports';
+  
 
   const config = useRuntimeConfig();
   const dialog = ref(false);

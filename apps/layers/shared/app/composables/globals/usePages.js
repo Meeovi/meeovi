@@ -1,6 +1,6 @@
 // composables/usePages.js
 import { ref } from 'vue';
-import { useRuntimeConfig } from '#imports';
+import { useRuntimeConfig } from 'nuxt/config';
 
 export function usePages() {
   const config = useRuntimeConfig();

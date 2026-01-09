@@ -1,4 +1,4 @@
-import { useRuntimeConfig } from '#imports';
+import { useRuntimeConfig } from 'nuxt/config';
 
 export const getGroups = async () => {
   const config = useRuntimeConfig();

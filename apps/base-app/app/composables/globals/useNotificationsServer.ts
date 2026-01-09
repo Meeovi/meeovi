@@ -1,12 +1,16 @@
-import { ref, computed } from 'vue'
-import { useNuxtApp, useUserSession } from '#imports'
+import { ref, computed, unref } from 'vue'
+import { useNuxtApp } from 'nuxt/app'
+import { useAuth } from './useAuth';
+
+// Prefer BetterAuth `useAuth()` when available
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const authAny: any = (globalThis as any).$useAuth ?? (typeof useAuth !== 'undefined' ? useAuth() : null)
 
 export default function useNotificationsServer(opts: { resource?: string; id?: string } = {}) {
   const resource = opts.resource ?? 'navigation'
   const id = opts.id ?? '77'
 
-  const { $directus, $readNotifications } = useNuxtApp()
-  const userSession = useUserSession()
+  const { $directus, $readNotifications } = useNuxtApp() as any
 
   const loading = ref(false)
   const itemsPerPage = ref(10)
@@ -26,7 +30,7 @@ export default function useNotificationsServer(opts: { resource?: string; id?: s
     currentPage.value = page
     itemsPerPage.value = perPage
 
-    const recipientId = userSession.user?.value?.id ?? userSession.user?.value?.name
+    const recipientId = (authAny?.user ? unref(authAny.user)?.id || unref(authAny.user)?.name : (authAny?.session ? unref(authAny.session)?.user?.id || unref(authAny.session)?.user?.name : null))
     if (!recipientId) {
       serverItemsRef.value = []
       totalItemsRef.value = 0

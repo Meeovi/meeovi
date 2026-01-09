@@ -1,0 +1,1 @@
+import{u as e}from"./composables.4170a9fa.js";import{o as t,I as o}from"./entry.cc9b0cdc.js";const c={},u=Object.assign(c,{__name:"checkout",setup(a){return e({title:"Checkout"}),(s,_)=>(t(),o("div"))}});export{u as default};

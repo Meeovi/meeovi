@@ -1,0 +1,1 @@
+import{u as e}from"./composables.4170a9fa.js";import{o as t,I as s}from"./entry.cc9b0cdc.js";const a={},p=Object.assign(a,{__name:"relatedposts",setup(o){return e({title:""}),(r,_)=>(t(),s("div"))}});export{p as default};

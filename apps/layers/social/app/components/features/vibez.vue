@@ -84,7 +84,6 @@
 
 <script setup>
 import { ref, computed, watchEffect } from 'vue'
-import { useNuxtApp, useRuntimeConfig } from '#imports'
 
 const { $directus, $readItems, $readItem, $createItem, $deleteItem } = useNuxtApp()
 const config = useRuntimeConfig()

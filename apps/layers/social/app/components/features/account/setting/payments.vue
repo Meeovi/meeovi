@@ -21,7 +21,6 @@
 
 <script setup>
 import { ref, onMounted } from 'vue';
-import { useNuxtApp } from '#app';
 import { useRuntimeConfig } from 'nuxt/app'
 
 const config = useRuntimeConfig()

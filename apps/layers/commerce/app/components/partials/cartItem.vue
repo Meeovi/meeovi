@@ -1,6 +1,6 @@
 <template>
   <div class="flex items-center py-4 border-b border-gray-200">
-    <div class="flex-shrink-0 w-24 h-24">
+    <div class="shrink-0 w-24 h-24">
       <productCard :product="productForCard" />
     </div>
     <div class="ml-4 flex-1">
@@ -43,11 +43,10 @@
 </template>
 
 <script setup lang="ts">
-import { useNuxtApp } from '#app';
-import productCard from '~/components/catalog/product/productCard.vue';
+import productCard from '../catalog/product/productCard.vue';
 import { computed } from 'vue';
 
-const props = defineProps({ item: Object })
+const props = defineProps<{ item: Record<string, any> }>();
 const emit = defineEmits(['cart-changed'])
 const nuxtApp = useNuxtApp()
 

@@ -63,8 +63,16 @@
 
 <script setup>
     import productCard from '~/components/related/post.vue'
-
-    const { user } = useUserSession()
+    import { computed, unref } from 'vue'
+    // BetterAuth `useAuth()` fallback
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const auth: any = (globalThis as any).$useAuth ?? (typeof useAuth !== 'undefined' ? useAuth() : null)
+    const user = computed(() => {
+        if (!auth) return null
+        if (auth.user) return unref(auth.user) || null
+        if (auth.session) return unref(auth.session)?.user || null
+        return null
+    })
 
     const {
         $directus,

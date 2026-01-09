@@ -168,7 +168,6 @@
         computed,
         onMounted
     } from 'vue'
-    import { useNuxtApp } from '#app'
 
     const { $directus, $readFieldsByCollection, $createItem, $updateItem, $deleteItem } = useNuxtApp()
 

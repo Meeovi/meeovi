@@ -47,9 +47,7 @@
   import {
     useRouter
   } from 'vue-router'
-  import {
-    useRuntimeConfig
-  } from '#imports';
+
   import {
     type Ref,
     ref,
@@ -57,8 +55,9 @@
   } from 'vue';
   import Client from '@searchkit/instantsearch-client'
   import Searchkit from "searchkit"
+  import { useRuntimeConfig } from 'nuxt/app'
 
-  const configDetails = useRuntimeConfig() as any;
+  const configDetails = useRuntimeConfig()
 
   const router = useRouter()
   const searchQuery = ref('');
@@ -66,8 +65,8 @@
 
   // Read search connection values from runtime config for security.
   // Set these in `nuxt.config.ts` runtimeConfig.public.search: { host, apiKey }
-  const searchHost = configDetails.search?.host;
-  const searchApiKey = configDetails.search?.apiKey;
+  const searchHost = configDetails.public.search?.host;
+  const searchApiKey = configDetails.public.search?.apiKey;
 
   if (!searchHost || !searchApiKey) {
     // warn in dev if runtime config not set

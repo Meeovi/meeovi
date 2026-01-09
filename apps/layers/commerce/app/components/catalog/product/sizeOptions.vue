@@ -17,7 +17,6 @@ const sizes = ref([])
 const selectedSize = ref(null)
 
 
-import { useNuxtApp } from '#app'
 const nuxtApp = useNuxtApp()
 const { $directus, $readItems } = nuxtApp
 

@@ -1,0 +1,5 @@
+{
+  "compilerOptions": {},
+  "include": ["**/*.ts", "**/*.tsx", "**/*.js"],
+  "exclude": ["node_modules", "dist"]
+}

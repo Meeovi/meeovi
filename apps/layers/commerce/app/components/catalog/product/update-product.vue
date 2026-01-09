@@ -157,9 +157,7 @@
     import {
         ref
     } from 'vue'
-    import {
-        useRuntimeConfig
-    } from '#imports';
+
     import editor from '~/app/components/partials/globals/editor.vue'
 
     const config = useRuntimeConfig();

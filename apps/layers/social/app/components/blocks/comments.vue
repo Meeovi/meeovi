@@ -24,8 +24,8 @@
   } from 'vue'
   import {
     useCommentsStore
-  } from '~/stores/useCommentsStore'
-  import { useRuntimeConfig } from '#imports'
+  } from 
+  '../../stores/useCommentsStore'
 
   const props = defineProps({
     contentId: {

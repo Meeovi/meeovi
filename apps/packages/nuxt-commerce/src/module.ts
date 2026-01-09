@@ -140,7 +140,7 @@ export default defineNuxtModule<CommerceModuleOptions>({
       getContents: () => `
         import type { CommerceProvider } from '${resolver.resolve('./runtime/types')}'
         
-        declare module '#app' {
+        declare module 'nuxt/app' {
           interface NuxtApp {
             $commerce: CommerceProvider
           }

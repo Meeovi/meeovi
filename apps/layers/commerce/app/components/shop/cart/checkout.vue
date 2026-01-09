@@ -168,7 +168,6 @@ import { ref, onMounted, computed, watch } from 'vue'
 import { loadStripe } from '@stripe/stripe-js'
 import { useCartStore } from '~/app/stores/cart'
 import ShippingOptions from '../../catalog/product/shippingOptions.vue'
-import { useNuxtApp } from '#app'
 
 // Component state
 const loading = ref(false)

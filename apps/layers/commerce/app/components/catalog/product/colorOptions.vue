@@ -24,7 +24,6 @@ const emit = defineEmits(['color-selected'])
 const colors = ref([])
 const selectedColor = ref(null)
 
-import { useNuxtApp } from '#app'
 const nuxtApp = useNuxtApp()
 const { $directus, $readItems } = nuxtApp
 

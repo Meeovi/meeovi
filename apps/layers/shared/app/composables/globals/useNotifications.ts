@@ -1,5 +1,5 @@
 import { ref, onMounted } from 'vue'
-import { useNuxtApp } from '#app'
+import { useAsyncData, useNuxtApp } from 'nuxt/app'
 
 export interface Notification {
   id: string
@@ -15,12 +15,12 @@ export interface Notification {
 export function useNotifications() {
   const notifications = ref<Notification[]>([])
   const unreadCount = ref(0)
-  const { $directus, $readItems, $updateItem } = useNuxtApp()
+  const { $directus, $readItems, $updateItem } = useNuxtApp() as any
 
   // Fetch notifications from Directus
   const fetchDirectusNotifications = async () => {
     try {
-      const { data } = await useAsyncData('directusNotifications', () => {
+      const { data } = await useAsyncData<any[]>('directusNotifications', () => {
         return $directus.request($readItems('notifications', {
           filter: {
             recipient: { _eq: 'current_user' }
@@ -30,12 +30,12 @@ export function useNotifications() {
       })
       
       if (data.value) {
-        const formattedNotifications = data.value.map((notification: any) => ({
-          id: notification.id,
-          title: notification.subject,
-          content: notification.message,
-          date: notification.timestamp,
-          type: notification.collection || 'system',
+        const formattedNotifications: Notification[] = data.value.map((notification: any) => ({
+          id: String(notification.id),
+          title: String(notification.subject),
+          content: String(notification.message),
+          date: String(notification.timestamp),
+          type: (['order', 'account', 'social', 'system'].includes(notification.collection) ? notification.collection : 'system') as Notification['type'],
           isRead: notification.status === 'read',
           source: 'directus',
           payload: notification.item
@@ -54,13 +54,13 @@ export function useNotifications() {
       const response = await fetch('/api/magento/notifications')
       const data = await response.json()
       
-      const formattedNotifications = data.map((notification: any) => ({
-        id: notification.id,
-        title: notification.title,
-        content: notification.message,
-        date: notification.created_at,
-        type: notification.type,
-        isRead: notification.is_read,
+      const formattedNotifications: Notification[] = data.map((notification: any) => ({
+        id: String(notification.id),
+        title: String(notification.title),
+        content: String(notification.message),
+        date: String(notification.created_at),
+        type: (['order', 'account', 'social', 'system'].includes(notification.type) ? notification.type : 'system') as Notification['type'],
+        isRead: Boolean(notification.is_read),
         source: 'magento',
         payload: notification.payload
       }))

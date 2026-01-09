@@ -1,4 +1,5 @@
 import type { BlobObject } from '@nuxthub/core'
+import type { Ref } from 'vue'
 
 export interface FilePlugin {
   getImages: () => Promise<void>

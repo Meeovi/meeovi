@@ -47,7 +47,7 @@ const formatDate = (date: string) =>
           <span class="font-semibold ml-2">{{ review.summary }}</span>
         </div>
         <div class="mt-2">
-          <p class="break-words">{{ review.body }}</p>
+          <p class="wrap-break-word">{{ review.body }}</p>
         </div>
       </div>
     </div>

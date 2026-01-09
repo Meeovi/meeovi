@@ -1,7 +1,0 @@
-﻿/* eslint-disable @typescript-eslint/no-explicit-any */
-import { useCommerce } from '../useCommerce'
-
-export function useMagento(opts?: any) {
-  return useCommerce({ provider: 'magento', providerOptions: opts })
-}
-export default useMagento

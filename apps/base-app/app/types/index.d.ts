@@ -1,6 +1,6 @@
 import type { HookResult } from '@nuxt/schema'
 
-declare module '#app' {
+declare module 'nuxt/app' {
   interface RuntimeNuxtHooks {
     'atproto:sessionCreated': (did: string) => HookResult
     'atproto:sessionRestored': (did: string) => HookResult

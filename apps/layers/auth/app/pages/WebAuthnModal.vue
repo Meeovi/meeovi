@@ -6,10 +6,17 @@
   const company = ref('')
   const toast = useToast()
 
-  const {
-    user,
-    fetch
-  } = useUserSession()
+  import { computed, unref } from 'vue'
+  // BetterAuth `useAuth()` fallback
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const auth: any = (globalThis as any).$useAuth ?? (typeof useAuth !== 'undefined' ? useAuth() : null)
+  const user = computed(() => {
+    if (!auth) return null
+    if (auth.user) return unref(auth.user) || null
+    if (auth.session) return unref(auth.session)?.user || null
+    return null
+  })
+  const fetch = async () => { if (auth?.fetchSession) return auth.fetchSession(); if (auth?.fetch) return auth.fetch(); return null }
   const {
     register,
     authenticate,

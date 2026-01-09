@@ -23,7 +23,7 @@
             height="80"
             class="rounded me-4"
           />
-          <div class="flex-grow-1">
+          <div class="grow">
             <h3 class="text-h6">{{ currentMedia.title }}</h3>
             <p class="text-body-2 text-medium-emphasis">
               {{ currentMedia.metadata?.artist || 'Unknown Artist' }}

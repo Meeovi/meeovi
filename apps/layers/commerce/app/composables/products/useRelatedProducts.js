@@ -1,4 +1,4 @@
-import { useNuxtApp } from '#app'
+import { useNuxtApp } from 'nuxt/app'
 
 export const useRelatedProducts = () => {
   const { $commerce } = useNuxtApp()

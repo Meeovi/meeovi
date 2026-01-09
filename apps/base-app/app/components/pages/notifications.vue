@@ -62,9 +62,7 @@
     onMounted,
     watch
   } from 'vue'
-  import {
-    useUserSession
-  } from '#imports'
+  // `useUserSession` replaced by BetterAuth `useAuth()` in server-side composable
   import useNotificationsServer from '~/composables/globals/useNotificationsServer'
 
   const loading = ref(false)

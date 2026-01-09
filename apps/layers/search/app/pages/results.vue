@@ -124,9 +124,7 @@
   } from "@meilisearch/instant-meilisearch";
   import "instantsearch.css/themes/satellite-min.css";
 
-  import {
-    useRuntimeConfig
-  } from '#imports';
+
 
   const config = useRuntimeConfig();
   const route = useRoute();

@@ -7,7 +7,7 @@
             class="block object-cover h-auto rounded-md aspect-square" width="300" height="300" />
         </NuxtLink>
         <v-btn variant="flat" size="sm" square
-          class="absolute bottom-0 right-0 mr-2 mb-2 bg-white ring-1 ring-inset ring-neutral-200 !rounded-full"
+          class="absolute bottom-0 right-0 mr-2 mb-2 bg-white ring-1 ring-inset ring-neutral-200 rounded-full!"
           aria-label="Add to wishlist">
           <v-icon icon="fas fa-heart" size="sm"></v-icon>
         </v-btn>
@@ -19,7 +19,7 @@
             class="block object-cover h-auto rounded-md aspect-square" width="300" height="300" />
         </NuxtLink>
         <v-btn variant="flat" size="sm" square
-          class="absolute bottom-0 right-0 mr-2 mb-2 bg-white ring-1 ring-inset ring-neutral-200 !rounded-full"
+          class="absolute bottom-0 right-0 mr-2 mb-2 bg-white ring-1 ring-inset ring-neutral-200 rounded-full!"
           aria-label="Add to wishlist">
           <v-icon icon="fas fa-heart" size="sm"></v-icon>
         </v-btn>

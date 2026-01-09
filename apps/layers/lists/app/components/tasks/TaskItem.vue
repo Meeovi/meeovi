@@ -13,7 +13,7 @@
           class="me-3"
         />
         
-        <div class="flex-grow-1">
+        <div class="grow">
           <div 
             :class="{ 'text-decoration-line-through text-medium-emphasis': task.completed }"
             class="task-title"

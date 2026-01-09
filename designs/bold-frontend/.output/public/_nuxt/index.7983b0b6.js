@@ -1,0 +1,1 @@
+import{u as e}from"./composables.4170a9fa.js";import{o as t,I as a}from"./entry.cc9b0cdc.js";const o={},i=Object.assign(o,{__name:"index",setup(s){return e({title:"Categories"}),(r,_)=>(t(),a("div"))}});export{i as default};

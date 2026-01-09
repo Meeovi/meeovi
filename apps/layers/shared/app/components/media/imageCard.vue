@@ -20,9 +20,6 @@
     import {
         computed
     } from 'vue'
-    import {
-        useRuntimeConfig
-    } from '#imports'
 
     const props = defineProps({
         media: {

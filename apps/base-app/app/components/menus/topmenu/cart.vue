@@ -118,7 +118,6 @@ import { ref, computed, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { useCartStore } from '#commerce/app/stores/cart'
 import { useCart } from '#commerce/app/composables/cart/useCart'
-import { useNuxtApp } from '#app'
 
 const cartNotification = ref(false)
 const notificationMessage = ref('')

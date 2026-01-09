@@ -8,7 +8,6 @@
 
 <script setup>
 import { onMounted } from 'vue'
-import { useRuntimeConfig } from '#app'
 
 const props = defineProps({
   contentId: {
