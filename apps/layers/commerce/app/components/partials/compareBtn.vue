@@ -10,7 +10,7 @@
 <script setup lang="ts">
   import { computed } from 'vue';
   import { useCompareStore } from '../../stores/compare';
-  import { useNuxtApp } from 'nuxt/app';
+  import { useNuxtApp } from '#imports';
   import type { Product } from '../../types/product';
 
   // Define props

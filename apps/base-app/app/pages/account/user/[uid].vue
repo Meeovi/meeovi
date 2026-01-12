@@ -131,15 +131,15 @@
     import followButton from '#social/app/components/partials/follow-button.vue'
     import post from '#social/app/components/feeds/posts.vue'
     import shorts from '#social/app/components/vibez/shorts.vue'
-    import replies from '~/app/components/pages/profile/replies.vue'
-    import media from '~/app/components/pages/profile/media.vue'
-    import likes from '~/app/components/pages/profile/likes.vue'
-    import archives from '~/app/components/pages/profile/archives.vue'
-    import settings from '~/app/components/account/settings.vue'
+    import replies from '~/components/pages/profile/replies.vue'
+    import media from '~/components/pages/profile/media.vue'
+    import likes from '~/components/pages/profile/likes.vue'
+    import archives from '~/components/pages/profile/archives.vue'
+    import settings from '~/components/account/settings.vue'
     import OnlineStatus from '#social/app/components/partials/onlineStatus.vue'
     import {
         useUserStore
-    } from '~~/layers/auth-app/app/stores/user'
+    } from '../../../../../../layers/auth/app/stores/user'
 
     const userStore = useUserStore()
 

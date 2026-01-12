@@ -1,4 +1,4 @@
-import { defineNuxtRouteMiddleware, navigateTo, useCookie, useNuxtApp } from 'nuxt/app'
+import { defineNuxtRouteMiddleware, navigateTo, useCookie, useNuxtApp } from '#imports'
 
 export default defineNuxtRouteMiddleware(async (to, from) => {
   const { $directus } = useNuxtApp();

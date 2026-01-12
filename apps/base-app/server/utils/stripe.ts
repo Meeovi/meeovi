@@ -2,13 +2,19 @@ import type { Subscription } from '@better-auth/stripe'
 import { stripe } from '@better-auth/stripe'
 import { eq } from 'drizzle-orm'
 import Stripe from 'stripe'
-import { user as userTable } from '../database/schema'
+import { profiles as userTable } from '../database/schema'
 import { logAuditEvent } from './auditLogger'
 import { useDB } from './db'
 import { runtimeConfig } from './runtimeConfig'
+import { User } from 'better-auth/types'
 
 const createStripeClient = () => {
-  return new Stripe(runtimeConfig.stripeSecretKey!)
+  const key = runtimeConfig.stripeSecretKey || (runtimeConfig.public && (runtimeConfig.public as any).stripe?.key) || process.env.STRIPE_SECRET_KEY
+  if (!key) {
+    throw new Error('Stripe secret key not set. Set NUXT_STRIPE_SECRET_KEY or STRIPE_SECRET_KEY or runtimeConfig.public.stripe.key')
+  }
+
+  return new Stripe(key)
 }
 
 export const ensureStripeCustomer = async (user: User) => {
@@ -38,7 +44,7 @@ export const ensureStripeCustomer = async (user: User) => {
 
 const getUserByStripeCustomerId = async (stripeCustomerId: string) => {
   const db = await useDB()
-  const user = db.query.user.findFirst({
+  const user = db.query.profiles.findFirst({
     where: eq(userTable.stripeCustomerId, stripeCustomerId)
   })
   return user

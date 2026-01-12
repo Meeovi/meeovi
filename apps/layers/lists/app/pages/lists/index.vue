@@ -8,7 +8,7 @@
                             :alt="page?.name">
                     </div>
                     <div v-else class="col-12 col-md-12 col-lg-8 image-wrapper">
-                        <img class="w-100" src="/images/cover.jpg" :alt="page?.name">
+                        <img class="w-100" src="../../assets/images/background1.jpg" :alt="page?.name">
                     </div>
                     <div class="col-12 col-lg col-md-12">
                         <div class="text-wrapper align-left rightTextColumn">
@@ -63,7 +63,7 @@
     import createList from '~/components/lists/add-list.vue'
     import {
         useUserStore
-    } from '~~/layers/auth-app/app/stores/user'
+    } from '../../../../auth/app/stores/user'
 
     const userStore = useUserStore()
     const userDisplayName = computed(() => {

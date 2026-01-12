@@ -1,7 +1,7 @@
 <template>
     <div>
         <section data-bs-version="5.1" class="header6 cid-sBXV7XsZQm" id="header6-2i"
-            :style="`background-image: url('/images/cover.jpg'); background-position: center;`">
+            :style="`background-image: url('../../../assets/images/background2.jpg'); background-position: center;`">
             <div class="mbr-overlay" style="opacity: 0.2; background-color: rgb(68, 121, 217);"></div>
             <div class="align-center container-fluid">
                 <div class="row justify-content-center">

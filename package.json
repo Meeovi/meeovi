@@ -19,8 +19,7 @@
   },
   "workspaces": [
     "apps/**",
-    "packages/*",
-    "designs/**"
+    "packages/*"
   ],
   "dependencies": {}
 }

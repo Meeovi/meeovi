@@ -28,8 +28,8 @@
         useVendureQuery
     } from '@/app/composables/useVendureQuery';
     import getProductListQuery from '#graphql/app/commerce/queries/getProductList.gql';
-    import addproduct from '~/app/components/crud/create/add-product.vue';
-    import productCard from '~/app/components/productCard.vue';
+    import addproduct from '~/components/crud/create/add-product.vue';
+    import productCard from '~/components/productCard.vue';
 
     const tab = ref('one');
     const products = ref([]);

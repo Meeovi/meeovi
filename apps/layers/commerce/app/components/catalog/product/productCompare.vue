@@ -10,7 +10,7 @@
 <script setup lang="ts">
 import { onMounted } from 'vue'
 import { useRouter } from 'vue-router'
-import { useCompareStore } from '~/app/stores/compare'
+import { useCompareStore } from '~/stores/compare'
 import { useMetaStore } from '~/stores/meta'
 import { useNavigationStore } from '~/stores/navigation'
 import { useBreadcrumbsStore } from '~/stores/breadcrumbs'

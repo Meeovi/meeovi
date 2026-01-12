@@ -59,7 +59,7 @@
   import { ref } from 'vue'
   import {
       useUserStore
-  } from '#auth/app/stores/user'
+  } from '../../../../auth/app/stores/user'
   
   const userStore = useUserStore()
 

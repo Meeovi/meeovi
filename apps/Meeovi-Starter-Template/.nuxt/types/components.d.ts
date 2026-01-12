@@ -28,16 +28,16 @@ interface _GlobalComponents {
   'RelatedTopics': typeof import("../../app/components/related/topics.vue").default
   'Search': typeof import("../../app/components/search/search.vue").default
   'AuthState': typeof import("../../node_modules/nuxt-auth-utils/dist/runtime/app/components/AuthState.vue").default
-  'NuxtWelcome': typeof import("../../node_modules/nuxt/dist/app/components/welcome.vue").default
-  'NuxtLayout': typeof import("../../node_modules/nuxt/dist/app/components/nuxt-layout").default
-  'NuxtErrorBoundary': typeof import("../../node_modules/nuxt/dist/app/components/nuxt-error-boundary.vue").default
-  'ClientOnly': typeof import("../../node_modules/nuxt/dist/app/components/client-only").default
-  'DevOnly': typeof import("../../node_modules/nuxt/dist/app/components/dev-only").default
-  'ServerPlaceholder': typeof import("../../node_modules/nuxt/dist/app/components/server-placeholder").default
-  'NuxtLink': typeof import("../../node_modules/nuxt/dist/app/components/nuxt-link").default
-  'NuxtLoadingIndicator': typeof import("../../node_modules/nuxt/dist/app/components/nuxt-loading-indicator").default
-  'NuxtTime': typeof import("../../node_modules/nuxt/dist/app/components/nuxt-time.vue").default
-  'NuxtRouteAnnouncer': typeof import("../../node_modules/nuxt/dist/app/components/nuxt-route-announcer").default
+  'NuxtWelcome': typeof import("../../../../node_modules/nuxt/dist/app/components/welcome.vue").default
+  'NuxtLayout': typeof import("../../../../node_modules/nuxt/dist/app/components/nuxt-layout").default
+  'NuxtErrorBoundary': typeof import("../../../../node_modules/nuxt/dist/app/components/nuxt-error-boundary.vue").default
+  'ClientOnly': typeof import("../../../../node_modules/nuxt/dist/app/components/client-only").default
+  'DevOnly': typeof import("../../../../node_modules/nuxt/dist/app/components/dev-only").default
+  'ServerPlaceholder': typeof import("../../../../node_modules/nuxt/dist/app/components/server-placeholder").default
+  'NuxtLink': typeof import("../../../../node_modules/nuxt/dist/app/components/nuxt-link").default
+  'NuxtLoadingIndicator': typeof import("../../../../node_modules/nuxt/dist/app/components/nuxt-loading-indicator").default
+  'NuxtTime': typeof import("../../../../node_modules/nuxt/dist/app/components/nuxt-time.vue").default
+  'NuxtRouteAnnouncer': typeof import("../../../../node_modules/nuxt/dist/app/components/nuxt-route-announcer").default
   'NuxtImg': typeof import("../../node_modules/@nuxt/image/dist/runtime/components/NuxtImg.vue").default
   'NuxtPicture': typeof import("../../node_modules/@nuxt/image/dist/runtime/components/NuxtPicture.vue").default
   'SfAccordionItem': typeof import("@storefront-ui/vue").SfAccordionItem
@@ -156,22 +156,22 @@ interface _GlobalComponents {
   'SfTextarea': typeof import("@storefront-ui/vue").SfTextarea
   'SfThumbnail': typeof import("@storefront-ui/vue").SfThumbnail
   'SfTooltip': typeof import("@storefront-ui/vue").SfTooltip
-  'NuxtLinkLocale': typeof import("../../node_modules/@nuxtjs/i18n/dist/runtime/components/NuxtLinkLocale").default
-  'SwitchLocalePathLink': typeof import("../../node_modules/@nuxtjs/i18n/dist/runtime/components/SwitchLocalePathLink").default
+  'NuxtLinkLocale': typeof import("../../../../node_modules/@nuxtjs/i18n/dist/runtime/components/NuxtLinkLocale").default
+  'SwitchLocalePathLink': typeof import("../../../../node_modules/@nuxtjs/i18n/dist/runtime/components/SwitchLocalePathLink").default
   'TiptapEditorContent': typeof import("@tiptap/vue-3").EditorContent
   'TiptapFloatingMenu': typeof import("@tiptap/vue-3/menus").FloatingMenu
   'TiptapBubbleMenu': typeof import("@tiptap/vue-3/menus").BubbleMenu
-  'NuxtPage': typeof import("../../node_modules/nuxt/dist/pages/runtime/page").default
-  'NoScript': typeof import("../../node_modules/nuxt/dist/head/runtime/components").NoScript
-  'Link': typeof import("../../node_modules/nuxt/dist/head/runtime/components").Link
-  'Base': typeof import("../../node_modules/nuxt/dist/head/runtime/components").Base
-  'Title': typeof import("../../node_modules/nuxt/dist/head/runtime/components").Title
-  'Meta': typeof import("../../node_modules/nuxt/dist/head/runtime/components").Meta
-  'Style': typeof import("../../node_modules/nuxt/dist/head/runtime/components").Style
-  'Head': typeof import("../../node_modules/nuxt/dist/head/runtime/components").Head
-  'Html': typeof import("../../node_modules/nuxt/dist/head/runtime/components").Html
-  'Body': typeof import("../../node_modules/nuxt/dist/head/runtime/components").Body
-  'NuxtIsland': typeof import("../../node_modules/nuxt/dist/app/components/nuxt-island").default
+  'NuxtPage': typeof import("../../../../node_modules/nuxt/dist/pages/runtime/page").default
+  'NoScript': typeof import("../../../../node_modules/nuxt/dist/head/runtime/components").NoScript
+  'Link': typeof import("../../../../node_modules/nuxt/dist/head/runtime/components").Link
+  'Base': typeof import("../../../../node_modules/nuxt/dist/head/runtime/components").Base
+  'Title': typeof import("../../../../node_modules/nuxt/dist/head/runtime/components").Title
+  'Meta': typeof import("../../../../node_modules/nuxt/dist/head/runtime/components").Meta
+  'Style': typeof import("../../../../node_modules/nuxt/dist/head/runtime/components").Style
+  'Head': typeof import("../../../../node_modules/nuxt/dist/head/runtime/components").Head
+  'Html': typeof import("../../../../node_modules/nuxt/dist/head/runtime/components").Html
+  'Body': typeof import("../../../../node_modules/nuxt/dist/head/runtime/components").Body
+  'NuxtIsland': typeof import("../../../../node_modules/nuxt/dist/app/components/nuxt-island").default
   'LazyBlocksLogo': LazyComponent<typeof import("../../app/components/blocks/logo.vue").default>
   'LazyMenusFooterNav': LazyComponent<typeof import("../../app/components/menus/FooterNav.vue").default>
   'LazyMenusEcosystemmenu': LazyComponent<typeof import("../../app/components/menus/ecosystemmenu.vue").default>
@@ -186,16 +186,16 @@ interface _GlobalComponents {
   'LazyRelatedTopics': LazyComponent<typeof import("../../app/components/related/topics.vue").default>
   'LazySearch': LazyComponent<typeof import("../../app/components/search/search.vue").default>
   'LazyAuthState': LazyComponent<typeof import("../../node_modules/nuxt-auth-utils/dist/runtime/app/components/AuthState.vue").default>
-  'LazyNuxtWelcome': LazyComponent<typeof import("../../node_modules/nuxt/dist/app/components/welcome.vue").default>
-  'LazyNuxtLayout': LazyComponent<typeof import("../../node_modules/nuxt/dist/app/components/nuxt-layout").default>
-  'LazyNuxtErrorBoundary': LazyComponent<typeof import("../../node_modules/nuxt/dist/app/components/nuxt-error-boundary.vue").default>
-  'LazyClientOnly': LazyComponent<typeof import("../../node_modules/nuxt/dist/app/components/client-only").default>
-  'LazyDevOnly': LazyComponent<typeof import("../../node_modules/nuxt/dist/app/components/dev-only").default>
-  'LazyServerPlaceholder': LazyComponent<typeof import("../../node_modules/nuxt/dist/app/components/server-placeholder").default>
-  'LazyNuxtLink': LazyComponent<typeof import("../../node_modules/nuxt/dist/app/components/nuxt-link").default>
-  'LazyNuxtLoadingIndicator': LazyComponent<typeof import("../../node_modules/nuxt/dist/app/components/nuxt-loading-indicator").default>
-  'LazyNuxtTime': LazyComponent<typeof import("../../node_modules/nuxt/dist/app/components/nuxt-time.vue").default>
-  'LazyNuxtRouteAnnouncer': LazyComponent<typeof import("../../node_modules/nuxt/dist/app/components/nuxt-route-announcer").default>
+  'LazyNuxtWelcome': LazyComponent<typeof import("../../../../node_modules/nuxt/dist/app/components/welcome.vue").default>
+  'LazyNuxtLayout': LazyComponent<typeof import("../../../../node_modules/nuxt/dist/app/components/nuxt-layout").default>
+  'LazyNuxtErrorBoundary': LazyComponent<typeof import("../../../../node_modules/nuxt/dist/app/components/nuxt-error-boundary.vue").default>
+  'LazyClientOnly': LazyComponent<typeof import("../../../../node_modules/nuxt/dist/app/components/client-only").default>
+  'LazyDevOnly': LazyComponent<typeof import("../../../../node_modules/nuxt/dist/app/components/dev-only").default>
+  'LazyServerPlaceholder': LazyComponent<typeof import("../../../../node_modules/nuxt/dist/app/components/server-placeholder").default>
+  'LazyNuxtLink': LazyComponent<typeof import("../../../../node_modules/nuxt/dist/app/components/nuxt-link").default>
+  'LazyNuxtLoadingIndicator': LazyComponent<typeof import("../../../../node_modules/nuxt/dist/app/components/nuxt-loading-indicator").default>
+  'LazyNuxtTime': LazyComponent<typeof import("../../../../node_modules/nuxt/dist/app/components/nuxt-time.vue").default>
+  'LazyNuxtRouteAnnouncer': LazyComponent<typeof import("../../../../node_modules/nuxt/dist/app/components/nuxt-route-announcer").default>
   'LazyNuxtImg': LazyComponent<typeof import("../../node_modules/@nuxt/image/dist/runtime/components/NuxtImg.vue").default>
   'LazyNuxtPicture': LazyComponent<typeof import("../../node_modules/@nuxt/image/dist/runtime/components/NuxtPicture.vue").default>
   'LazySfAccordionItem': LazyComponent<typeof import("@storefront-ui/vue").SfAccordionItem>
@@ -314,22 +314,22 @@ interface _GlobalComponents {
   'LazySfTextarea': LazyComponent<typeof import("@storefront-ui/vue").SfTextarea>
   'LazySfThumbnail': LazyComponent<typeof import("@storefront-ui/vue").SfThumbnail>
   'LazySfTooltip': LazyComponent<typeof import("@storefront-ui/vue").SfTooltip>
-  'LazyNuxtLinkLocale': LazyComponent<typeof import("../../node_modules/@nuxtjs/i18n/dist/runtime/components/NuxtLinkLocale").default>
-  'LazySwitchLocalePathLink': LazyComponent<typeof import("../../node_modules/@nuxtjs/i18n/dist/runtime/components/SwitchLocalePathLink").default>
+  'LazyNuxtLinkLocale': LazyComponent<typeof import("../../../../node_modules/@nuxtjs/i18n/dist/runtime/components/NuxtLinkLocale").default>
+  'LazySwitchLocalePathLink': LazyComponent<typeof import("../../../../node_modules/@nuxtjs/i18n/dist/runtime/components/SwitchLocalePathLink").default>
   'LazyTiptapEditorContent': LazyComponent<typeof import("@tiptap/vue-3").EditorContent>
   'LazyTiptapFloatingMenu': LazyComponent<typeof import("@tiptap/vue-3/menus").FloatingMenu>
   'LazyTiptapBubbleMenu': LazyComponent<typeof import("@tiptap/vue-3/menus").BubbleMenu>
-  'LazyNuxtPage': LazyComponent<typeof import("../../node_modules/nuxt/dist/pages/runtime/page").default>
-  'LazyNoScript': LazyComponent<typeof import("../../node_modules/nuxt/dist/head/runtime/components").NoScript>
-  'LazyLink': LazyComponent<typeof import("../../node_modules/nuxt/dist/head/runtime/components").Link>
-  'LazyBase': LazyComponent<typeof import("../../node_modules/nuxt/dist/head/runtime/components").Base>
-  'LazyTitle': LazyComponent<typeof import("../../node_modules/nuxt/dist/head/runtime/components").Title>
-  'LazyMeta': LazyComponent<typeof import("../../node_modules/nuxt/dist/head/runtime/components").Meta>
-  'LazyStyle': LazyComponent<typeof import("../../node_modules/nuxt/dist/head/runtime/components").Style>
-  'LazyHead': LazyComponent<typeof import("../../node_modules/nuxt/dist/head/runtime/components").Head>
-  'LazyHtml': LazyComponent<typeof import("../../node_modules/nuxt/dist/head/runtime/components").Html>
-  'LazyBody': LazyComponent<typeof import("../../node_modules/nuxt/dist/head/runtime/components").Body>
-  'LazyNuxtIsland': LazyComponent<typeof import("../../node_modules/nuxt/dist/app/components/nuxt-island").default>
+  'LazyNuxtPage': LazyComponent<typeof import("../../../../node_modules/nuxt/dist/pages/runtime/page").default>
+  'LazyNoScript': LazyComponent<typeof import("../../../../node_modules/nuxt/dist/head/runtime/components").NoScript>
+  'LazyLink': LazyComponent<typeof import("../../../../node_modules/nuxt/dist/head/runtime/components").Link>
+  'LazyBase': LazyComponent<typeof import("../../../../node_modules/nuxt/dist/head/runtime/components").Base>
+  'LazyTitle': LazyComponent<typeof import("../../../../node_modules/nuxt/dist/head/runtime/components").Title>
+  'LazyMeta': LazyComponent<typeof import("../../../../node_modules/nuxt/dist/head/runtime/components").Meta>
+  'LazyStyle': LazyComponent<typeof import("../../../../node_modules/nuxt/dist/head/runtime/components").Style>
+  'LazyHead': LazyComponent<typeof import("../../../../node_modules/nuxt/dist/head/runtime/components").Head>
+  'LazyHtml': LazyComponent<typeof import("../../../../node_modules/nuxt/dist/head/runtime/components").Html>
+  'LazyBody': LazyComponent<typeof import("../../../../node_modules/nuxt/dist/head/runtime/components").Body>
+  'LazyNuxtIsland': LazyComponent<typeof import("../../../../node_modules/nuxt/dist/app/components/nuxt-island").default>
 }
 
 declare module 'vue' {

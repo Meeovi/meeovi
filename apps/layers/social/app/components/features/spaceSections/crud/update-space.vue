@@ -79,7 +79,7 @@
 <script setup>
 import { ref } from 'vue';
 import { readItem, deleteItem, updateItem } from '@directus/sdk'; // Add this import at the top
-import uploadFiles from '~~/layers/shared-app/app/composables/globals/uploadFiles';
+import uploadFiles from '../../../../composables/globals/uploadFiles';
 import updateSpace from '~/composables/spaces/updateSpace';
 
 const route = useRoute();

@@ -19,7 +19,7 @@
                         </div>
 
                         <div v-else>
-                            <img loading="lazy" src="/images/background4.jpg" :alt="post?.title || 'No Title'" />
+                            <img loading="lazy" src="assets/images/background4.jpg" :alt="post?.title || 'No Title'" />
                         </div>
                     </div>
 

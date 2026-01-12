@@ -103,8 +103,8 @@
   import {
     ref
   } from 'vue'
-  import showcases from '~/app/components/catalog/product/relatedproducts.vue'
-  import productCard from '~/app/components/catalog/product/productCard.vue'
+  import showcases from '~/components/catalog/product/relatedproducts.vue'
+  import productCard from '~/components/catalog/product/productCard.vue'
   import comments from '#social/app/components/comments.vue'
   import spaces from '#social/app/components/space.vue'
   import events from '#social/app/components/event.vue'

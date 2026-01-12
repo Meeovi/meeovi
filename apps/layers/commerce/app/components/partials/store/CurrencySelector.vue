@@ -16,7 +16,7 @@
   } from 'vue'
   import {
     useCurrencyStore
-  } from '~/app/stores/currency'
+  } from '~/stores/currency'
   import {
     useQuery,
     useMutation

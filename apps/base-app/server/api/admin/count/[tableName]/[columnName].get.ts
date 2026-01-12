@@ -5,7 +5,7 @@ import { z } from 'zod'
 import * as schema from '../../../../database/schema'
 import { isValidTable, useDB } from '../../../../utils/db'
 import { filterSchema, processFilters, withFilters } from '../../../../utils/query'
-import { createError } from 'nuxt/app'
+import { createError } from '#imports'
 import { eventHandler, getValidatedQuery, getValidatedRouterParams } from 'h3'
 
 const pathSchema = z.object({

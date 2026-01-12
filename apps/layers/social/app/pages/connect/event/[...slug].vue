@@ -9,7 +9,7 @@
                                 <div class="col-12 col-md-12 col-lg-5 image-wrapper">
                                     <img v-if="event?.image" class="w-100" :src="`${$directus.url}assets/${event?.image?.filename_disk}`" :alt="event?.name">
 
-                                    <img v-else src="../../assets/images/backgraund-trend.jpg" :alt="event?.name" />
+                                    <img v-else src="../../../assets/images/backgraund-trend.jpg" :alt="event?.name" />
                                 </div>
                                 <div class="col-12 col-lg col-md-12">
                                     <div class="text-wrapper align-left">

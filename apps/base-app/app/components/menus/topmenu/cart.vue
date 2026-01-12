@@ -117,7 +117,7 @@
 import { ref, computed, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { useCartStore } from '#commerce/app/stores/cart'
-import { useCart } from '#commerce/app/composables/cart/useCart'
+import { useCart } from '~/composables/cart/useCart'
 
 const cartNotification = ref(false)
 const notificationMessage = ref('')

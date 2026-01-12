@@ -1,6 +1,6 @@
 // Instantiate a Searchkit SDK client. The SDK is expected to be installed.
 import Client from '@searchkit/instantsearch-client'
-import { useRuntimeConfig } from 'nuxt/app'
+import { useRuntimeConfig } from '#imports'
 
 function getRuntimeConfig(): any {
   try {

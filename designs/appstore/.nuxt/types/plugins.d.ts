@@ -3,22 +3,30 @@ import type { Plugin } from '#app'
 
 type Decorate<T extends Record<string, any>> = { [K in keyof T as K extends string ? `$${K}` : never]: T[K] }
 
-type InjectionType<A extends Plugin> = A extends Plugin<infer T> ? Decorate<T> : unknown
+type InjectionType<A extends Plugin> = A extends {default: Plugin<infer T>} ? Decorate<T> : unknown
 
 type NuxtAppInjections = 
-  InjectionType<typeof import("../components.plugin").default> &
-  InjectionType<typeof import("../../node_modules/nuxt/dist/head/runtime/lib/vueuse-head.plugin").default> &
-  InjectionType<typeof import("../../node_modules/nuxt/dist/pages/runtime/plugins/router").default> &
-  InjectionType<typeof import("../../node_modules/nuxt/dist/pages/runtime/plugins/prefetch.client").default> &
-  InjectionType<typeof import("../../node_modules/@nuxtjs/apollo/dist/runtime/plugin").default> &
-  InjectionType<typeof import("../../node_modules/nuxt-directus/dist/runtime/plugin").default> &
-  InjectionType<typeof import("../../node_modules/@nuxt/content/dist/runtime/plugins/ws").default> &
-  InjectionType<typeof import("../../plugins/fontawesome").default> &
-  InjectionType<typeof import("../../plugins/instantsearch").default> &
-  InjectionType<typeof import("../../plugins/vuetify").default>
+  InjectionType<typeof import("../../../../node_modules/nuxt/dist/app/plugins/revive-payload.client.js")> &
+  InjectionType<typeof import("../../../../node_modules/nuxt/dist/head/runtime/plugins/unhead.js")> &
+  InjectionType<typeof import("../../../../node_modules/nuxt/dist/pages/runtime/plugins/router.js")> &
+  InjectionType<typeof import("../../../../node_modules/nuxt/dist/app/plugins/payload.client.js")> &
+  InjectionType<typeof import("../../../../node_modules/nuxt/dist/app/plugins/navigation-repaint.client.js")> &
+  InjectionType<typeof import("../../../../node_modules/nuxt/dist/app/plugins/check-outdated-build.client.js")> &
+  InjectionType<typeof import("../../../../node_modules/nuxt/dist/app/plugins/revive-payload.server.js")> &
+  InjectionType<typeof import("../../../../node_modules/nuxt/dist/app/plugins/chunk-reload.client.js")> &
+  InjectionType<typeof import("../../../../node_modules/nuxt/dist/pages/runtime/plugins/prefetch.client.js")> &
+  InjectionType<typeof import("../../../../node_modules/@nuxtjs/apollo/dist/runtime/plugin.js")> &
+  InjectionType<typeof import("../../../../node_modules/nuxt-directus/dist/runtime/plugin.js")> &
+  InjectionType<typeof import("../../plugins/fontawesome.js")> &
+  InjectionType<typeof import("../../plugins/instantsearch.js")> &
+  InjectionType<typeof import("../../plugins/vuetify.js")>
 
 declare module '#app' {
   interface NuxtApp extends NuxtAppInjections { }
+
+  interface NuxtAppLiterals {
+    pluginName: 'nuxt:revive-payload:client' | 'nuxt:head' | 'nuxt:router' | 'nuxt:payload' | 'nuxt:revive-payload:server' | 'nuxt:chunk-reload' | 'nuxt:global-components' | 'nuxt:prefetch'
+  }
 }
 
 declare module 'vue' {

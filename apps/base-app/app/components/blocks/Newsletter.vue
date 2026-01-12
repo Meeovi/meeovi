@@ -41,7 +41,7 @@
 <script setup>
 import { ref } from 'vue'
 import { createItem, readItem } from '@directus/sdk'
-import { useNuxtApp, useAsyncData } from 'nuxt/app'
+import { useNuxtApp, useAsyncData } from '#imports'
 
 const email = ref('')
 const message = ref('')

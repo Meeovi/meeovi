@@ -7,7 +7,7 @@
             <div>
               <div class="shadow">
                 <img v-if="!user?.image" :src="user?.image" :alt="user?.name" class="align">
-                <img v-else src="/images/team1.jpg" :alt="user?.name" class="align">
+                <img v-else src="assets/images/team1.jpg" :alt="user?.name" class="align">
                 <h5 class="card-title mbr-fonts-style display-2">
                   <strong>{{ user?.name }}</strong>
                 </h5>
@@ -52,6 +52,9 @@
 </template>
 
 <script setup lang="ts">
+import { useAuth, useI18n, useLocalePath, useAsyncData, useHead, useToast } from '#imports';
+import { onMounted, ref } from 'vue';
+import { useRoute } from 'vue-router';
   
   const route = useRoute();
   const tab = ref(null);
@@ -67,19 +70,17 @@
   const localePath = useLocalePath()
   const {
     data: accounts
-  } = await useAsyncData<{ data: { provider: string }[] }>('/accounts', () => client.listAccounts())
+  } = await useAsyncData<any>('/accounts', () => client.listAccounts())
 
   function hasProvider(provider: string) {
-    return accounts.value?.data?.some((account: { provider: string }) => account.provider === provider)
+    const list = (accounts.value as any)?.data ?? (accounts.value as any)
+    return list?.some((account: { provider: string }) => account.provider === provider)
   }
 
   const error = useRoute().query?.error
   onMounted(() => {
     if (error) {
-      toast.add({
-        color: 'error',
-        title: `${error}`
-      })
+      toast.error({ message: String(error) })
     }
   })
 

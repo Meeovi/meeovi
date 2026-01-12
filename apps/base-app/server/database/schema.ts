@@ -1042,7 +1042,7 @@ export const colors = pgTable("colors", {
 	lightHsl: smallint("light_hsl"),
 	satHsv: smallint("sat_hsv"),
 	valHsv: smallint("val_hsv"),
-	source: colorSource(),
+	//source: colorSource(),
 });
 
 export const commentsProducts = pgTable("comments_products", {

@@ -58,7 +58,7 @@
   } from 'vue'
   import {
     useNotifications
-  } from '#shared/app/composables/globals/useNotifications'
+  } from '~/composables/globals/useNotifications'
 
   const drawer = ref(false)
   const {

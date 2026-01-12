@@ -64,23 +64,23 @@
 </template>
 
 <script setup>
-    import dashboard from '~/app/components/account/dashboard.vue'
-    import orders from '#commerce/app/components/orders/orders/my-orders.vue'
-    import transactions from '#commerce/app/components/orders/transactions.vue'
-    import shipments from '#commerce/app/components/orders/shipments.vue'
-    import refunds from '#commerce/app/components/orders/orders/returns.vue'
-    import creditmemos from '#commerce/app/components/orders/creditmemos.vue'
-    import addresses from '~/app/components/account/addresses.vue'
-    import downloads from '~/app/components/account/downloads.vue'
-    import reviews from '~/app/components/account/reviews.vue'
-    import settings from '~/app/components/account/settings.vue'
+    import dashboard from '~/components/account/dashboard.vue'
+    import orders from '~/components/account/orders.vue'
+    import transactions from '~/components/account/transactions.vue'
+    import shipments from '~/components/account/shipments.vue'
+    import refunds from '~/components/account/refunds.vue'
+    import creditmemos from '~/components/account/creditmemos.vue'
+    import addresses from '~/components/account/addresses.vue'
+    import downloads from '~/components/account/downloads.vue'
+    import reviews from '~/components/account/reviews.vue'
+    import settings from '~/components/account/settings.vue'
     import {
         ref
     } from 'vue'
 
     import {
         useUserStore
-    } from '~~/layers/auth-app/app/stores/user'
+    } from '../../../../../layers/auth/app/stores/user'
 
     const userStore = useUserStore()
 

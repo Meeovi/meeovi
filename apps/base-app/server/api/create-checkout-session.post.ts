@@ -1,7 +1,7 @@
 import { createError, defineEventHandler, readBody } from 'h3'
 import { createDirectus, rest, readItem } from '@directus/sdk'
 import Stripe from 'stripe'
-import { useRuntimeConfig } from 'nuxt/app'
+import { useRuntimeConfig } from '#imports'
 
 export default defineEventHandler(async (event) => {
   const config = useRuntimeConfig()

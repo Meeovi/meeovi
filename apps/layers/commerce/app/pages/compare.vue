@@ -47,7 +47,7 @@
 import { ref, onMounted, computed } from 'vue';
 import { useQuery, useMutation } from '@vue/apollo-composable';
 import gql from 'graphql-tag';
-import productCompareTable from '~/app/components/catalog/product/productCompareTable.vue';
+import productCompareTable from '~/components/catalog/product/productCompareTable.vue';
 
 // GraphQL query to get compared products
 const COMPARED_PRODUCTS_QUERY = gql`

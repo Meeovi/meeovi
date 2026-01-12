@@ -1,4 +1,4 @@
-import { defineNuxtPlugin } from 'nuxt/app'
+import { defineNuxtPlugin } from '#imports'
 import videojs from 'video.js'
 import 'video.js/dist/video-js.css'
 

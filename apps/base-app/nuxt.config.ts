@@ -1,20 +1,29 @@
 import {
   defineNuxtConfig
 } from "nuxt/config";
+import {
+  useLayers
+} from 'nuxt-layers-utils'
+import {
+  generateRuntimeConfig
+} from "./server/utils/runtimeConfig";
+//import tsconfigPaths from 'vite-tsconfig-paths'
+
+const layers = useLayers(__dirname, {
+  auth: '../layers/auth',
+  commerce: '../layers/commerce',
+  social: '../layers/social',
+  lists: '../layers/lists',
+  departments: '../layers/departments',
+  shared: '../layers/shared',
+  search: '../layers/search',
+  dashboard: '../layers/seller-dashboard',
+  chat: '../layers/chat',
+})
 
 export default defineNuxtConfig({
-  extends: [],
-  alias: {
-    'commerce': '../layers/commerce',
-    'social': '../layers/social',
-    'lists': '../layers/lists',
-    'departments': '../layers/departments',
-    'auth': '../layers/auth',
-    'search': '../layers/search',
-    'dashboard': '../layers/seller-dashboard',
-    'chat': '../layers/chat',
-    'shared': '../layers/shared',
-  },
+  extends: layers.extends(),
+  alias: layers.alias('#'),
 
   app: {
     head: {
@@ -64,12 +73,12 @@ export default defineNuxtConfig({
     '@nuxtjs/leaflet',
     '@storefront-ui/nuxt',
     'nuxt-tiptap-editor',
-    '@nuxt/test-utils/module',
     'vuetify-nuxt-module',
     '@pinia/nuxt',
     '@nuxtjs/i18n',
     "nuxt-security",
     '@nuxtjs/seo',
+    'nuxt-toast'
   ],
 
   security: {
@@ -128,101 +137,7 @@ export default defineNuxtConfig({
     ],
   },
 
-  runtimeConfig: {
-    turnstile: {
-      secretKey: process.env.NUXT_TURNSTILE_SECRET_KEY
-    },
-    public: {
-      NUXT_PROJECT_ID: process.env.NUXT_PROJECT_ID,
-      NUXT_PUBLIC_SITE_URL: process.env.NUXT_PUBLIC_SITE_URL,
-      rocketChatUrl: process.env.NUXT_PUBLIC_ROCKETCHAT_URL,
-      minioEndpoint: process.env.MINIO_ENDPOINT,
-      minioUser: process.env.MINIO_USER,
-      minioPass: process.env.MINIO_PASS,
-
-      // Directus
-      directus: {
-        url: process.env.DIRECTUS_URL,
-        nuxtBaseUrl: process.env.NUXT_PUBLIC_SITE_URL || 'http://localhost:3000',
-        auth: {
-          email: process.env.NUXTUS_DIRECTUS_ADMIN_EMAIL,
-          password: process.env.NUXTUS_DIRECTUS_ADMIN_PASSWORD,
-          token: process.env.NUXTUS_DIRECTUS_STATIC_TOKEN,
-          enabled: true,
-          enableGlobalAuthMiddleware: false, // Enable auth middleware on every page
-          userFields: ['*'], // Select user fields
-          redirect: {
-            login: '/auth/login', // Path to redirect when login is required
-            logout: '/', // Path to redirect after logout
-            home: '/', // Path to redirect after successful login
-            resetPassword: '/auth/reset-password', // Path to redirect for password reset
-            callback: '/auth/callback', // Path to redirect after login with provider
-          },
-        }
-      },
-
-      // Search (Elasticsearch / Searchkit or MeiliSearch) - set at runtime or via environment
-      search: {
-        // Example: 'https://your-search-host:9243' or MeiliSearch host
-        host: process.env.NUXT_PUBLIC_SEARCH_HOST,
-        // Example: 'your_api_key'
-        apiKey: process.env.NUXT_PUBLIC_SEARCH_API_KEY,
-      },
-
-      supabase: {
-        url: process.env.SUPABASE_URL || '',
-        key: process.env.SUPABASE_KEY || ''
-      },
-
-      commerceUrl: process.env.COMMERCE_STORE_URL,
-      commerceGraphql: process.env.COMMERCE_GRAPHQL_URL,
-      commerceApiToken: process.env.WEBSITE_TOKEN,
-
-      gtagId: process.env.NUXT_PUBLIC_GTAG_ID,
-      // Cloudflare Turnstile
-      turnstile: {
-        // This can be overridden at runtime via the NUXT_TURNSTILE_SECRET_KEY
-        // environment variable.
-        secretKey: process.env.NUXT_TURNSTILE_SECRET_KEY,
-      },
-      // Server
-      stripe: {
-        key: process.env.STRIPE_SECRET_KEY,
-      },
-
-      // Commerce
-      commerce: {
-        magentoEndpoint: process.env.MAGE_MAGENTO_GRAPHQL_URL || '',
-        magentoToken: process.env.MAGE_MAGENTO_TOKEN || '',
-      },
-
-      ups: {
-        apiKey: process.env.UPS_API_KEY,
-        apiUrl: process.env.UPS_API_URL || 'https://onlinetools.ups.com/api'
-      },
-
-      fedex: {
-        apiKey: process.env.FEDEX_API_KEY,
-        apiUrl: process.env.FEDEX_API_URL
-      },
-
-      dhl: {
-        apiKey: process.env.DHL_API_KEY,
-        apiUrl: process.env.DHL_API_URL
-      },
-
-      payments: {
-        enabledProviders: process.env.PAYMENT_PROVIDERS?.split(',') || ['stripe', 'offline'],
-        defaultProvider: process.env.DEFAULT_PAYMENT_PROVIDER || 'stripe',
-        currency: process.env.DEFAULT_CURRENCY || 'USD'
-      },
-    },
-    paypal: {
-      clientId: process.env.PAYPAL_CLIENT_ID,
-      clientSecret: process.env.PAYPAL_CLIENT_SECRET,
-      sandbox: process.env.PAYPAL_SANDBOX === 'true'
-    },
-  },
+  runtimeConfig: generateRuntimeConfig(),
 
   image: {
     provider: 'directus',
@@ -233,7 +148,11 @@ export default defineNuxtConfig({
 
   build: {},
 
-  vite: {},
+  vite: {
+    plugins: [
+      /*tsconfigPaths()*/
+    ],
+  },
 
   nitro: {
     prerender: {

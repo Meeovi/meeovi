@@ -1,13 +1,15 @@
 
 /// <reference path="app.config.d.ts" />
 /// <reference path="runtime-config.d.ts" />
-/// <reference types="/home/meebuzo/github/Meeovi-Starter-Template/node_modules/@nuxt/nitro-server/dist/index.mjs" />
+/// <reference types="/home/meebuzo/github/meeovi/node_modules/@nuxt/nitro-server/dist/index.mjs" />
+/// <reference path="nuxt-security.d.ts" />
+/// <reference path="nuxt-security-nitro.d.ts" />
 /// <reference path="nitro-middleware.d.ts" />
 
 import type { RuntimeConfig } from 'nuxt/schema'
 import type { H3Event } from 'h3'
 import type { LogObject } from 'consola'
-import type { NuxtIslandContext, NuxtIslandResponse, NuxtRenderHTMLContext } from 'nuxt/app'
+import type { NuxtIslandContext, NuxtIslandResponse, NuxtRenderHTMLContext } from '#imports'
 
 declare module 'nitropack' {
   interface NitroRuntimeConfigApp {

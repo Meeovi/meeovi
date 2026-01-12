@@ -37,7 +37,7 @@
                     </div>
                 </div>
             </div>
-            <img src="/images/background2.jpg" :alt="transaction?.id">
+            <img src="../../assets/images/background10.jpg" :alt="transaction?.id">
         </section>
     </div>
 </template>

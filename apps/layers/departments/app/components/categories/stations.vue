@@ -55,12 +55,12 @@
 </template>
 
 <script setup>
-  import station from '#commerce/app/components/catalog/product/radiostation.vue'
-  import createstation from '#commerce/app/components/catalog/product/add-station.vue'
+    import station from '../../../../commerce/app/components/catalog/product/radiostation.vue'
+    import createstation from '../../../../commerce/app/components/catalog/product/add-station.vue'
   import { ref } from 'vue'
   import {
       useUserStore
-  } from '#auth/app/stores/user'
+  } from '../../../../auth/app/stores/user'
   
   const userStore = useUserStore()
 

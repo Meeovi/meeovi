@@ -299,7 +299,7 @@
     title: computed(() => product?.value?.name || 'Product Page')
   })
 
-  import { addViewed } from '#commerce/app/composables/products/useRecentlyViewed'
+  import { addViewed } from '../../composables/products/useRecentlyViewed'
 
   watch(product, (newVal) => {
     if (process.client && newVal?.id) {

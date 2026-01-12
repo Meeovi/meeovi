@@ -26,7 +26,7 @@
 
 <script setup>
 import { ref } from 'vue'
-import DirectusFormElement from '#shared/app/components/forms/DirectusFormElement.vue'
+import DirectusFormElement from '#shared/app/components/ui/forms/DirectusFormElement.vue'
 import { useDirectusForm } from '#shared/app/composables/globals/useDirectusForm'
 
 const dialog = ref(false)

@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import { reactive } from 'vue'
-import { useRuntimeConfig, useNuxtApp, onNuxtReady } from 'nuxt/app'
+import { useRuntimeConfig, useNuxtApp, onNuxtReady } from '#imports'
 
 type ReactionEntry = {
   contentId: string | number

@@ -48,7 +48,7 @@
   import relatedbrands from '@/components/catalog/product/relatedbrands.vue'
   import {
     useRuntimeConfig
-  } from 'nuxt/app';
+  } from '#imports';
 
   const route = useRoute();
     const {

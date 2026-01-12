@@ -1,6 +1,6 @@
 import { ref, watch } from 'vue'
-import { useNuxtApp } from 'nuxt/app'
-import { useCartStore } from '~/app/stores/cart'
+import { useNuxtApp } from '#imports'
+import { useCartStore } from '~/stores/cart'
 
 export function useShippingSelection(initial = null) {
   const shippingOptions = ref([])

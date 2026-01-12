@@ -1,18 +1,18 @@
 <template>
   <div class="comments-embed">
     <client-only>
-      <component v-if="disqusAvailable && channelName" is="vue-disqus"
-        :shortname="shortname"
-        :identifier="identifier"
-        :title="title"
-        :url="url"
-      />
+        <component v-if="disqusComponent && channelName" :is="disqusComponent"
+          :shortname="shortname"
+          :identifier="identifier"
+          :title="title"
+          :url="url"
+        />
 
-      <iframe v-else-if="commentsStore.iframeUrl" :src="commentsStore.iframeUrl" width="100%" :height="height"
-        frameborder="0" allow="camera; microphone; fullscreen"></iframe>
+        <iframe v-else-if="commentsStore.iframeUrl" :src="commentsStore.iframeUrl" width="100%" :height="height"
+          frameborder="0" allow="camera; microphone; fullscreen"></iframe>
 
-      <p v-else>Loading comments...</p>
-    </client-only>
+        <p v-else>Loading comments...</p>
+      </client-only>
   </div>
 </template>
 
@@ -53,16 +53,18 @@
   const title = computed(() => (channelName.value ? `Comments: ${channelName.value}` : `Comments: ${identifier.value}`))
   const url = computed(() => (typeof window !== 'undefined' ? window.location.href : ''))
 
-  // detect if vue-disqus is available (installed/registered) — if not, fallback to iframe
-  const disqusAvailable = ref(false)
+  // lazy-load `vue-disqus` component at runtime; fallback to iframe if unavailable
+  const disqusComponent = ref(null)
   onMounted(async () => {
     try {
-      // Attempt to import the package; if it resolves, assume component available via plugin registration
-      // @ts-ignore - package typings cannot be resolved through exports; ignore type check for runtime import
-      await import('vue-disqus')
-      disqusAvailable.value = true
+      // Dynamically import the component module using a non-literal specifier
+      // so the bundler won't attempt to resolve it at build time.
+      // @ts-ignore
+      const pkg = 'vue-disqus'
+      const mod = await import(/* @vite-ignore */ pkg)
+      disqusComponent.value = mod?.default || mod
     } catch (e) {
-      disqusAvailable.value = false
+      disqusComponent.value = null
     }
   })
 </script>

@@ -14,7 +14,7 @@
                             </div>
 
                             <div class="item-img" v-else>
-                                <img loading="lazy" src="/images/08.jpg" :alt="blocks?.name" />
+                                <img loading="lazy" src="../../../assets/images/08.jpg" :alt="blocks?.name" />
                             </div>                            
                             <div class="item-content">
                                 <h5 class="item-title mbr-fonts-style display-5">
@@ -40,7 +40,7 @@
                             </div>
 
                             <div class="item-img" v-else>
-                                <img loading="lazy" src="/images/aerocrete1.jpg" :alt="blocks?.name" />
+                                <img loading="lazy" src="../../../assets/images/aerocrete1.jpg" :alt="blocks?.name" />
                             </div> 
                             <div class="item-content">
                                 <h5 class="item-title mbr-fonts-style display-5">
@@ -66,7 +66,7 @@
                             </div>
 
                             <div class="item-img" v-else>
-                                <img loading="lazy" src="/images/mbr-1-1920x1170.jpg" :alt="blocks?.name" />
+                                <img loading="lazy" src="../../../assets/images/mbr-1-1920x1170.jpg" :alt="blocks?.name" />
                             </div>
                             <div class="item-content">
                                 <h5 class="item-title mbr-fonts-style display-5">

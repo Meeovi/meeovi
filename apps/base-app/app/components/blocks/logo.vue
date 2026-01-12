@@ -13,7 +13,7 @@
         <v-app-bar-title v-else>
             <NuxtLink class="logobrand" href="/">
                 <v-icon start color="orange">
-                    <img src="/images/logo512alpha.png" :alt="blocksSiteoverview?.name" />
+                    <img src="assets/images/logo512alpha-192x192.png" :alt="blocksSiteoverview?.name" />
                 </v-icon>
                 <p class="logotext">{{ blocksSiteoverview?.name }}<!--Meeovi--></p>
             </NuxtLink>

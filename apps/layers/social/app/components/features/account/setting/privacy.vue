@@ -17,7 +17,7 @@
 
 <script setup>
 import { ref, onMounted } from 'vue';
-import { useUserStore } from '~~/layers/auth-app/app/stores/user';
+import { useUserStore } from '#auth/app/stores/user';
 
 const customerStore = useUserStore();
 

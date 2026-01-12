@@ -166,7 +166,7 @@
 <script setup>
 import { ref, onMounted, computed, watch } from 'vue'
 import { loadStripe } from '@stripe/stripe-js'
-import { useCartStore } from '~/app/stores/cart'
+import { useCartStore } from '~/stores/cart'
 import ShippingOptions from '../../catalog/product/shippingOptions.vue'
 
 // Component state

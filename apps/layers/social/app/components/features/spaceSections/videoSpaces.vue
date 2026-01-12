@@ -23,7 +23,7 @@
     import spaceCard from '~/components/related/space.vue'
     import {
         useUserStore
-    } from '~~/layers/auth-app/app/stores/user'
+    } from '#auth/app/stores/user'
 
     const userStore = useUserStore()
     const userDisplayName = computed(() => {

@@ -35,7 +35,7 @@
               <div class="item-img">
                 <img v-if="block?.images?.length" :src="`${$directus.url}assets/${block?.image?.filename_disk}`" :alt="block?.name" />
 
-                <img v-else src="/images/mbr-1920x1080.jpg" alt="Elite Novels" />
+                <img v-else src="../../assets/images/mbr-1920x1080.jpg" alt="Elite Novels" />
               </div>
               <div class="card-box">
                 <h4 class="item-title mbr-fonts-style display-5 color-title">

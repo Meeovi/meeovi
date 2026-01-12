@@ -163,7 +163,7 @@
     import orderCard from '~/components/related/order.vue'
     import {
         useUserStore
-    } from '~~/layers/auth-app/app/stores/user'
+    } from '#auth/app/stores/user'
 
     const user = useSupabaseUser()
 

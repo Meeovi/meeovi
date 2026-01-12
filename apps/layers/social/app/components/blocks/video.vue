@@ -29,8 +29,6 @@
 </template>
 
 <script setup>
-    import '@maas/vue-equipment/plugins/MagicPlayer/css/magic-player-video-controls.css';
-
     import {
         ref
     } from 'vue'

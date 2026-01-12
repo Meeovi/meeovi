@@ -110,7 +110,7 @@
                     </div>
                 </div>
             </div>
-            <img src="../../../../assets/images/background2.jpg" alt="Shipments">
+            <img src="../../assets/images/background2.jpg" alt="Shipments">
         </section>
 
         <v-card title="Shipment Items" flat>

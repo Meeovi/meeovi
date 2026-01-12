@@ -1,5 +1,5 @@
 import { ref, onMounted } from 'vue'
-import { useAsyncData, useNuxtApp } from 'nuxt/app'
+import { useAsyncData, useNuxtApp } from '#imports'
 
 export interface Notification {
   id: string
@@ -52,8 +52,14 @@ export function useNotifications() {
     try {
       // Replace with your Magento API endpoint
       const response = await fetch('/api/magento/notifications')
+      if (!response.ok) {
+        const text = await response.text().catch(() => '')
+        console.error('Magento notifications fetch failed', { status: response.status, body: text })
+        return
+      }
+
       const data = await response.json()
-      
+
       const formattedNotifications: Notification[] = data.map((notification: any) => ({
         id: String(notification.id),
         title: String(notification.title),
@@ -65,8 +71,8 @@ export function useNotifications() {
         payload: notification.payload
       }))
       notifications.value = [...notifications.value, ...formattedNotifications]
-    } catch (error) {
-      console.error('Error fetching Magento notifications:', error)
+    } catch (error: any) {
+      console.error('Error fetching Magento notifications:', error?.message ?? String(error))
     }
   }
 

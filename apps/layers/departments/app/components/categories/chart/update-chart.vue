@@ -89,12 +89,12 @@
     import {
         ref
     } from 'vue';
-    import uploadFiles from '~~/layers/shared-app/app/composables/globals/uploadFiless
+        import uploadFiles from '../../../composables/globals/uploadFiles'
     import updateChart from '~/composables/charts/updateChart';
     import { updateItem, deleteItem } from '@directus/sdk';
     import {
         useUserStore
-    } from '~~/layers/auth-app/app/stores/user'
+    } from '#auth/app/stores/user'
     import {
         useRouter
     } from 'vue-router'

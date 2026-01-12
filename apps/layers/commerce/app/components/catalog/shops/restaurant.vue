@@ -50,7 +50,7 @@
 <script setup>
     import {
         useRuntimeConfig
-    } from 'nuxt/app';
+    } from '#imports';
 
     const config = useRuntimeConfig();
     const props = defineProps({

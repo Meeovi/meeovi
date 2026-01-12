@@ -1,7 +1,7 @@
 import {
   defineNuxtPlugin,
   useRuntimeConfig
-} from 'nuxt/app'
+} from '#imports'
 import {
   ApolloClient,
   InMemoryCache,

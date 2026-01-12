@@ -28,7 +28,7 @@
         ref,
         onMounted
     } from 'vue'
-    import store from '~/app/components/catalog/product/stores.vue'
+    import store from '~/components/catalog/product/stores.vue'
 
     const model = ref(null)
     const {

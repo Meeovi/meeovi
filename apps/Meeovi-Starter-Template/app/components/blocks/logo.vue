@@ -9,7 +9,7 @@
                 </v-icon>
 
                 <v-icon v-else start>
-                    <img src="/images/logo.png" :alt="blocksSiteoverview?.name" />
+                    <img src="../../assets/images/logo.png" :alt="blocksSiteoverview?.name" />
                 </v-icon>
                 <p class="logotext">{{ blocksSiteoverview?.name }}<!--Meeovi--></p>
             </NuxtLink>

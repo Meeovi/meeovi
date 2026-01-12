@@ -13,10 +13,10 @@
 </template>
 
 <script setup>
-import biggestcustomers from '~/app/components/vendor/sales/biggestcustomers.vue'
-import lowestselling from '~/app/components/vendor/sales/lowestselling.vue'
-import topcategories from '~/app/components/vendor/sales/topcategories.vue'
-import topproducts from '~/app/components/vendor/sales/topproducts.vue'
+import biggestcustomers from '~/components/vendor/sales/biggestcustomers.vue'
+import lowestselling from '~/components/vendor/sales/lowestselling.vue'
+import topcategories from '~/components/vendor/sales/topcategories.vue'
+import topproducts from '~/components/vendor/sales/topproducts.vue'
     import {
         ref
     } from 'vue'

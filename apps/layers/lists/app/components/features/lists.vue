@@ -29,7 +29,7 @@
     import listCard from '~/components/related/list.vue'
     import {
         useUserStore
-    } from '~~/layers/auth-app/app/stores/user'
+    } from '#auth/app/stores/user'
 
     const userStore = useUserStore()
     const userDisplayName = computed(() => {

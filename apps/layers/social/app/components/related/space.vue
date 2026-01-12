@@ -4,7 +4,7 @@
             <img v-if="space?.image?.filename_disk" class="align-end text-white" height="200"
                 :src="`${$directus.url}assets/${space?.image?.filename_disk}`" :alt="space?.name" />
 
-            <img class="align-end text-white" height="200" v-else src="/images/background8.jpg" :alt="space?.name" />
+            <img class="align-end text-white" height="200" v-else src="assets/images/background8.jpg" :alt="space?.name" />
 
             <v-card-title>{{ space?.name }}</v-card-title>
 

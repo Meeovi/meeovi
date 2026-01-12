@@ -15,7 +15,7 @@
 
       <div class="relative" v-else>
         <NuxtLink :to="`/product/${product?.id}`" class="block">
-          <img src="/images/mbr-1920x1893.png" :alt="product?.name"
+          <img src="assets/images/mbr-1920x1893.png" :alt="product?.name"
             class="block object-cover h-auto rounded-md aspect-square" width="300" height="300" />
         </NuxtLink>
         <v-btn variant="flat" size="sm" square

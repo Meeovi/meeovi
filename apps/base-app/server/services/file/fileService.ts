@@ -6,7 +6,7 @@ import { and, desc, eq } from 'drizzle-orm'
 import { v7 as uuidv7 } from 'uuid'
 import { file as fileTable } from '../../database/schema/file'
 import { logAuditEvent } from '../../utils/auditLogger'
-import { useRuntimeConfig, createError } from 'nuxt/app'
+import { useRuntimeConfig, createError } from '#imports'
 import { useDB } from '../../utils/db'
 import { formatFileSize } from '../../../shared/utils/format'
 

@@ -13,7 +13,7 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
   import { readMe } from '@directus/sdk'
   import { computed, unref } from 'vue'
 

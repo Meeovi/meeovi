@@ -1,7 +1,13 @@
-import type { NitroRuntimeConfig } from 'nitropack/types'
-import type { FileManagerConfig, StorageProviderType } from '../services/file/types'
-import { config } from 'dotenv'
-import { useRuntimeConfig } from 'nuxt/app'
+import type {
+  NitroRuntimeConfig
+} from 'nitropack/types'
+import type {
+  FileManagerConfig,
+  StorageProviderType
+} from '../services/file/types'
+import {
+  config
+} from 'dotenv'
 
 declare module '@nuxt/schema' {
   interface RuntimeConfig {
@@ -12,6 +18,10 @@ declare module '@nuxt/schema' {
 let runtimeConfigInstance: NitroRuntimeConfig
 
 export const generateRuntimeConfig = () => ({
+  turnstile: {
+    secretKey: process.env.NUXT_TURNSTILE_SECRET_KEY
+  },
+
   preset: process.env.NUXT_NITRO_PRESET,
   betterAuthSecret: process.env.NUXT_BETTER_AUTH_SECRET,
   // Stripe
@@ -57,6 +67,7 @@ export const generateRuntimeConfig = () => ({
       windowSizeMinutes: 1
     }
   } satisfies FileManagerConfig,
+
   public: {
     baseURL: process.env.NUXT_APP_URL,
     appName: process.env.NUXT_APP_NAME,
@@ -68,16 +79,96 @@ export const generateRuntimeConfig = () => ({
     auth: {
       redirectUserTo: '/',
       redirectGuestTo: '/signin'
-    }
-  }
+    },
+
+    NUXT_PROJECT_ID: process.env.NUXT_PROJECT_ID,
+    NUXT_PUBLIC_SITE_URL: process.env.NUXT_PUBLIC_SITE_URL,
+    rocketChatUrl: process.env.NUXT_PUBLIC_ROCKETCHAT_URL,
+    minioEndpoint: process.env.MINIO_ENDPOINT,
+    minioUser: process.env.MINIO_USER,
+    minioPass: process.env.MINIO_PASS,
+
+    // Directus
+    directus: {
+      url: process.env.DIRECTUS_URL,
+      nuxtBaseUrl: process.env.NUXT_PUBLIC_SITE_URL || 'http://localhost:3000',
+      auth: {
+        email: process.env.NUXTUS_DIRECTUS_ADMIN_EMAIL,
+        password: process.env.NUXTUS_DIRECTUS_ADMIN_PASSWORD,
+        token: process.env.NUXTUS_DIRECTUS_STATIC_TOKEN,
+        enabled: true,
+        enableGlobalAuthMiddleware: false, // Enable auth middleware on every page
+        userFields: ['*'], // Select user fields
+        redirect: {
+          login: '/auth/login', // Path to redirect when login is required
+          logout: '/', // Path to redirect after logout
+          home: '/', // Path to redirect after successful login
+          resetPassword: '/auth/reset-password', // Path to redirect for password reset
+          callback: '/auth/callback', // Path to redirect after login with provider
+        },
+      }
+    },
+
+    // Search (Elasticsearch / Searchkit or MeiliSearch) - set at runtime or via environment
+    search: {
+      host: process.env.SEARCH_HOST,
+      apiKey: process.env.SEARCH_API_KEY,
+      // Default index name for InstantSearch components
+      indexName: process.env.ALGOLIA_INDEX_NAME || process.env.MEILISEARCH_INDEX_NAME || process.env.SEARCH_INDEX || ''
+    },
+
+    supabase: {
+      url: process.env.SUPABASE_URL || '',
+      key: process.env.SUPABASE_KEY || ''
+    },
+
+    commerceUrl: process.env.COMMERCE_STORE_URL,
+    commerceGraphql: process.env.COMMERCE_GRAPHQL_URL,
+    commerceApiToken: process.env.WEBSITE_TOKEN,
+
+    gtagId: process.env.NUXT_PUBLIC_GTAG_ID,
+
+    // Server
+    stripe: {
+      key: process.env.STRIPE_SECRET_KEY,
+    },
+
+    // Commerce
+    commerce: {
+      magentoEndpoint: process.env.MAGE_MAGENTO_GRAPHQL_URL || '',
+      magentoToken: process.env.MAGE_MAGENTO_TOKEN || '',
+    },
+
+    ups: {
+      apiKey: process.env.UPS_API_KEY,
+      apiUrl: process.env.UPS_API_URL || 'https://onlinetools.ups.com/api'
+    },
+
+    fedex: {
+      apiKey: process.env.FEDEX_API_KEY,
+      apiUrl: process.env.FEDEX_API_URL
+    },
+
+    dhl: {
+      apiKey: process.env.DHL_API_KEY,
+      apiUrl: process.env.DHL_API_URL
+    },
+
+    payments: {
+      enabledProviders: process.env.PAYMENT_PROVIDERS?.split(',') || ['stripe', 'offline'],
+      defaultProvider: process.env.DEFAULT_PAYMENT_PROVIDER || 'stripe',
+      currency: process.env.DEFAULT_CURRENCY || 'USD'
+    },
+  },
+  paypal: {
+    clientId: process.env.PAYPAL_CLIENT_ID,
+    clientSecret: process.env.PAYPAL_CLIENT_SECRET,
+    sandbox: process.env.PAYPAL_SANDBOX === 'true'
+  },
 })
 
 if (typeof useRuntimeConfig !== 'undefined') {
-  const cfg = useRuntimeConfig()
-  runtimeConfigInstance = {
-    ...(cfg as any),
-    nitro: (cfg as any).nitro ?? {}
-  } as NitroRuntimeConfig
+  runtimeConfigInstance = useRuntimeConfig()
 } else {
   // for cli: npm run auth:schema
   config()

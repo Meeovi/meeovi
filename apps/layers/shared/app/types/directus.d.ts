@@ -24,7 +24,7 @@ type DirectusClientWithRequest<T = any> = DirectusClient<T> & {
   request?: (config: DirectusRequestConfig) => Promise<DirectusUploadResponse | DirectusUploadResponse[]>
 }
 
-declare module 'nuxt/app' {
+declare module '#imports' {
   interface NuxtApp {
     $directus: DirectusClientWithRequest<any>
     $readItems: any

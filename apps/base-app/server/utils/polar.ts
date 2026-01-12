@@ -1,14 +1,14 @@
-import type { Benefit } from '@polar-sh/sdk/dist/esm/models/components/benefit.js'
-import type { BenefitGrantWebhook } from '@polar-sh/sdk/dist/esm/models/components/benefitgrantwebhook.js'
-import type { Checkout } from '@polar-sh/sdk/dist/esm/models/components/checkout.js'
-import type { Customer } from '@polar-sh/sdk/dist/esm/models/components/customer.js'
-import type { CustomerState } from '@polar-sh/sdk/dist/esm/models/components/customerstate.js'
-import type { Order } from '@polar-sh/sdk/dist/esm/models/components/order.js'
-import type { Organization } from '@polar-sh/sdk/dist/esm/models/components/organization.js'
-import type { Product } from '@polar-sh/sdk/dist/esm/models/components/product.js'
-import type { Refund } from '@polar-sh/sdk/dist/esm/models/components/refund.js'
-import type { Subscription } from '@polar-sh/sdk/dist/esm/models/components/subscription.js'
-import type { CustomerSeat } from '@polar-sh/sdk/dist/esm/models/components/customerseat.js'
+import type { Benefit } from '@polar-sh/sdk/models/components/benefit.js'
+import type { BenefitGrantWebhook } from '@polar-sh/sdk/models/components/benefitgrantwebhook.js'
+import type { Checkout } from '@polar-sh/sdk/models/components/checkout.js'
+import type { Customer } from '@polar-sh/sdk/models/components/customer.js'
+import type { CustomerState } from '@polar-sh/sdk/models/components/customerstate.js'
+import type { Order } from '@polar-sh/sdk/models/components/order.js'
+import type { Organization } from '@polar-sh/sdk/models/components/organization.js'
+import type { Product } from '@polar-sh/sdk/models/components/product.js'
+import type { Refund } from '@polar-sh/sdk/models/components/refund.js'
+import type { Subscription } from '@polar-sh/sdk/models/components/subscription.js'
+import type { CustomerSeat } from '@polar-sh/sdk/models/components/customerseat.js'
 import { checkout, polar, portal, usage, webhooks } from '@polar-sh/better-auth'
 import { Polar } from '@polar-sh/sdk'
 import { eq } from 'drizzle-orm'
@@ -66,7 +66,7 @@ const addPaymentLog = async (hookType: string, data: Customer | Checkout | Benef
       const db = await useDB()
       await db.update(userTable).set({
         polarCustomerId: customer.id
-      }).where(eq(userTable.id, customer.externalId))
+      } as any).where(eq(userTable.id, customer.externalId))
     }
     await logAuditEvent({
       userId: customer.externalId || undefined,

@@ -2,7 +2,7 @@
     <v-card class="mx-auto" max-width="400">
         <img v-if="member?.avatar?.filename_disk" class="align-end auto-text" height="200" :src="`${$directus.url}assets/${member?.avatar?.filename_disk}`"  :alt="member?.first_name" />
 
-        <img v-else class="align-end auto-text" height="200" src="/images/face7.jpg" :alt="member?.first_name" />
+        <img v-else class="align-end auto-text" height="200" src="assets/images/face7.jpg" :alt="member?.first_name" />
             <v-card-title>{{ member?.first_name }} {{ member?.last_name }}</v-card-title>
 
         <v-card-subtitle class="pt-4">

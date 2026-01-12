@@ -55,7 +55,7 @@
     } from 'vue';
     import {
         useRoute    } from 'vue-router';
-    import uploadFiles from '~~/layers/shared-app/app/composables/globals/uploadFiles';
+    import uploadFiles from '#shared/app/composables/globals/uploadFiles';
     import createChart from '@/composables/charts/createChart';
 
     // Make sure your props are properly defined

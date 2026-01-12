@@ -716,6 +716,8 @@ import { RuntimeConfig as UserRuntimeConfig, PublicRuntimeConfig as UserPublicRu
          strictSeo: boolean,
 
          nitroContextDetection: boolean,
+
+         httpCacheDuration: number,
       },
 
       domainLocales: {

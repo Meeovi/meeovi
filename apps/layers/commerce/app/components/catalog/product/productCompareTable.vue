@@ -124,8 +124,8 @@
 <script setup>
 import { computed } from 'vue';
 import { SfIconClose } from '@storefront-ui/vue';
-import addToCartBtn from '~/app/components/partials/commerce/addToCartBtn.vue';
-import Ratings from '~/app/components/partials/commerce/ratings.vue';
+import addToCartBtn from '~/components/partials/commerce/addToCartBtn.vue';
+import Ratings from '~/components/partials/commerce/ratings.vue';
 
 const props = defineProps({
   products: {

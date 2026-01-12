@@ -1,0 +1,13 @@
+import { useNuxtApp } from '#imports'
+import type { CommerceProvider } from '../types'
+
+/**
+ * Access the commerce provider instance
+ * Returns the configured commerce provider (Magento, Shopify, etc.)
+ */
+export const useCommerce = (): CommerceProvider => {
+  const { $commerce } = useNuxtApp()
+  return $commerce
+}
+
+export default useCommerce

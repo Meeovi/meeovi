@@ -158,7 +158,7 @@
         ref
     } from 'vue'
 
-    import editor from '~/app/components/partials/globals/editor.vue'
+    import editor from '~/components/partials/globals/editor.vue'
 
     const config = useRuntimeConfig();
     const name = ref('');

@@ -1,5 +1,5 @@
 {
-   "name": "Meeovi Learning",
+   "name": "learning-app",
    "version": "0.0.5",
    "description": "A headless content management system with ecommerce features, graphql, Nuxtjs, and Prisma ORM.",
    "author": "Sebastian Hilton (https://www.sebastianhilton.com)",

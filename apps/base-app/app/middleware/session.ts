@@ -1,4 +1,5 @@
-import { generateId } from '../../../layers/shared/app/utils/strings';
+import { defineNuxtRouteMiddleware, useCookie } from '#imports';
+import { generateId } from '../../../../layers/shared/app/utils/strings';
 
 export interface Session {
 	id: string;

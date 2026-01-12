@@ -5,7 +5,7 @@
                 data-video='{"source": [{"src":"/videos/video1.mp4", "type":"video/mp4"}], "attributes": {"preload": false, "controls": true}}'
                 data-poster="/images/demo/youtube-video-poster.jpg"
                 data-sub-html="<h4>'Peck Pocketed' by Kevin Herron | Disney Favorite</h4>">
-                <img width="300" height="100" class="img-responsive" src="/images/demo/youtube-video-poster.jpg" />
+                <img width="300" height="100" class="img-responsive" src="../../assets/images/demo/youtube-video-poster.jpg" />
             </NuxtLink>
         </div>
     </client-only>

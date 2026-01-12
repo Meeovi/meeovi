@@ -1,6 +1,7 @@
-import { auth } from "../../utils/auth";
-import { defineEventHandler, toWebRequest } from "h3";
+import { defineEventHandler, toWebRequest } from 'h3'
+import { useServerAuth } from '../../utils/auth'
 
-export default defineEventHandler(async (event) => {
-	return auth.handler(toWebRequest(event));
-});
+export default defineEventHandler((event) => {
+  const serverAuth = useServerAuth()
+  return serverAuth.handler(toWebRequest(event))
+})

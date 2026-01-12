@@ -21,7 +21,7 @@
 
 <script setup>
 import { ref, onMounted } from 'vue';
-import { useRuntimeConfig } from 'nuxt/app'
+import { useRuntimeConfig } from '#imports'
 
 const config = useRuntimeConfig()
 const paymentMethods = ref([]);

@@ -1,10 +1,11 @@
 import { createDirectus, rest, authentication, readItem, readItems, createItem, deleteItem, uploadFiles, readSingleton, readFieldsByCollection } from '@directus/sdk';
+import { defineNuxtPlugin, useRuntimeConfig } from '#imports';
 import type { DirectusSchema } from '~/types/directus';
 
 export default defineNuxtPlugin(() => {
-	const config = useRuntimeConfig()
+	const config = useRuntimeConfig() as { public: { directus?: { url?: string } } }
 
-	const directus = createDirectus<DirectusSchema>(`${config.public.directus.url}`)
+	const directus = createDirectus<DirectusSchema>(config?.public?.directus?.url ?? '')
 		.with(rest())
 		.with(authentication())
 

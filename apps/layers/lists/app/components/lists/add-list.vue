@@ -27,7 +27,7 @@
 <script setup>
 import { ref, computed } from 'vue'
 import DirectusFormElement from '#shared/app/components/ui/forms/DirectusFormElement.vue'
-import { useDirectusForm } from '#shared/app/composables/globals/useDirectusForm'
+import { useDirectusForm } from '../../composables/globals/useDirectusForm'
 
 const dialog = ref(false)
 const { $directus, $readFieldsByCollection } = useNuxtApp()

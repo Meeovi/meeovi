@@ -19,7 +19,7 @@
                         </div>
 
                         <div v-else>
-                            <img class="w-100" src="/images/gallery03.jpg" :alt="post?.title || 'No Title'" />
+                            <img class="w-100" src="../../../assets/images/image3.jpg" :alt="post?.title || 'No Title'" />
                         </div>
 
                     </div>
@@ -73,7 +73,7 @@
                                     </NuxtLink>
 
                                     <NuxtLink v-else :to="`/user/${post?.author?.id}`">
-                                        <v-avatar image="/images/background4.jpg" size="41"></v-avatar>
+                                        <v-avatar image="../../../assets/images/background2.jpg" size="41"></v-avatar>
                                     </NuxtLink>
                                 </h5>
                             </div>

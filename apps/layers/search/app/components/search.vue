@@ -19,6 +19,7 @@
           <div class="search-panel__results">
             <div class="searchbox">
               <ais-search-box placeholder="" />
+              <input v-if="isDev" v-model="searchQuery" placeholder="Debug: search input" class="debug-search-input" />
             </div>
             <ais-hits>
               <template v-slot:item="{ item, index }">
@@ -55,18 +56,26 @@
   } from 'vue';
   import Client from '@searchkit/instantsearch-client'
   import Searchkit from "searchkit"
-  import { useRuntimeConfig } from 'nuxt/app'
+  import {
+    useRuntimeConfig
+  } from '#app'
 
   const configDetails = useRuntimeConfig()
 
   const router = useRouter()
   const searchQuery = ref('');
   const indexName = configDetails.public.indexName;
+  const isDev = process.env.NODE_ENV !== 'production'
+
+  if (process.env.NODE_ENV !== 'production') {
+    // eslint-disable-next-line no-console
+    console.debug('[search] indexName', indexName)
+  }
 
   // Read search connection values from runtime config for security.
   // Set these in `nuxt.config.ts` runtimeConfig.public.search: { host, apiKey }
-  const searchHost = configDetails.public.search?.host;
-  const searchApiKey = configDetails.public.search?.apiKey;
+  const searchHost = (configDetails.public as any).search?.host;
+  const searchApiKey = (configDetails.public as any).search?.apiKey;
 
   if (!searchHost || !searchApiKey) {
     // warn in dev if runtime config not set
@@ -111,6 +120,11 @@
 
   const searchkitClient = new Searchkit(config as any)
   const searchClient = Client(searchkitClient);
+
+  if (process.env.NODE_ENV !== 'production') {
+    // eslint-disable-next-line no-console
+    console.debug('[search] searchClient', searchClient, 'has search method:', typeof searchClient.search)
+  }
 
   function openResult(item: any) {
     const id = item._id ?? item.id ?? '';

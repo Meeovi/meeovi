@@ -48,7 +48,7 @@
   </template>
   
   <script setup>
-  import { useCartStore } from '~/app/stores/cart'
+  import { useCartStore } from '~/stores/cart'
   
   import ShippingOptions from '../components/catalog/product/shippingOptions.vue'
   import { ref, computed } from 'vue'

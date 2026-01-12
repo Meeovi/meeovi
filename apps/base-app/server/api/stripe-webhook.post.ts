@@ -1,7 +1,7 @@
 import { defineEventHandler, readRawBody } from 'h3'
 import Stripe from 'stripe'
 import { createDirectus, rest, updateItem } from '@directus/sdk'
-import { useRuntimeConfig } from 'nuxt/app'
+import { useRuntimeConfig } from '#imports'
 
 export default defineEventHandler(async (event) => {
   const config = useRuntimeConfig() as any

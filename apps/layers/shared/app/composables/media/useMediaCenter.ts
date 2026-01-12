@@ -1,5 +1,5 @@
 import { ref, computed, unref } from 'vue'
-import { useNuxtApp } from 'nuxt/app'
+import { useNuxtApp } from '#imports'
 import useDirectusRequest from '../useDirectusRequest'
 import { useAuth } from '~/composables/globals/useAuth'
 

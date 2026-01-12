@@ -13,12 +13,12 @@
                                 <strong>Meeovi's</strong>
                             </h4>
                             <h5 class="mbr-section-subtitle mbr-fonts-style mb-0 display-2">
-                                <strong>{{ outletPixanomy.name }}</strong>
+                                <strong>{{ outletPixanomy?.name }}</strong>
                             </h5>
-                            <h5 class="main-text mbr-fonts-style mb-0 display-7" v-dompurify-html="outletPixanomy.description">
+                            <h5 class="main-text mbr-fonts-style mb-0 display-7" v-dompurify-html="outletPixanomy?.description">
                             </h5>
                             <div class="mbr-section-btn item-footer">
-                                <NuxtLink :to="`/departments/${outletPixanomy.slug}`"
+                                <NuxtLink :to="`/departments/${outletPixanomy?.slug}`"
                                     class="btn btn-danger item-btn display-7" target="_blank">
                                     <span class="mobi-mbri mobi-mbri-arrow-next mbr-iconfont mbr-iconfont-btn"></span>
                                     Shop Now

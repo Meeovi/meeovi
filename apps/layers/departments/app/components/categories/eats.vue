@@ -11,7 +11,7 @@
 
 <script setup>
     import shorts from '#social/app/components/features/vibeSections/shorts.vue'
-    //import share from '~/app/components/partials/globals/share.vue'
+    //import share from '~/components/partials/globals/share.vue'
 
     const {
         $directus,

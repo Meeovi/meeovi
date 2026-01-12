@@ -5,11 +5,11 @@ import type { DefineComponent } from 'vue'
 export type AsyncComponentLoader = () => Promise<DefineComponent | { default: DefineComponent } | any>
 
 export const componentMap: AsyncComponentLoader[] = [
-  () => import('../../layers/social-app/app/components/features/spaceSections/defaultSpaces.vue'),
-  () => import('../../layers/social-app/app/components/features/spaceSections/audioSpaces.vue'),
-  () => import('../../layers/social-app/app/components/features/spaceSections/videoSpaces.vue'),
-  () => import('../../layers/social-app/app/components/features/spaceSections/imageSpaces.vue'),
-  () => import('../../layers/social-app/app/components/features/spaceSections/textSpaces.vue'),
+  () => import('../../../social/app/components/features/spaceSections/defaultSpaces.vue'),
+  () => import('../../../social/app/components/features/spaceSections/audioSpaces.vue'),
+  () => import('../../../social/app/components/features/spaceSections/videoSpaces.vue'),
+  () => import('../../../social/app/components/features/spaceSections/imageSpaces.vue'),
+  () => import('../../../social/app/components/features/spaceSections/textSpaces.vue'),
 ]
 
 export default componentMap
