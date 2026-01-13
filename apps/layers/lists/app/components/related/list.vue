@@ -17,7 +17,7 @@
             </div>
 
             <div class="item-img" v-else>
-                <img src="../../assets/images/image10.jpg" :alt="list?.name" />
+                <img src="images/image10.jpg" :alt="list?.name" />
             </div>
         </div>
     </div>

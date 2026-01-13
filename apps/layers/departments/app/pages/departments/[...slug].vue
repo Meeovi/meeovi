@@ -10,7 +10,7 @@
             <v-card variant="text">
                 <v-toolbar :style="`background-color: ${department?.color}; color: ${department?.colortext}`"
                     :title="department?.name">
-                    <v-slide-group show-arrows>
+                    <v-slide-group show-arrows v-if="department?.categories?.length">
                         <v-slide-group-item v-slot="{ isSelected, toggle }">
                             <v-menu>
                                 <template v-slot:activator="{ props }">
@@ -24,9 +24,9 @@
                                         <v-col cols="3" v-for="categories in department?.categories"
                                             :key="categories?.id">
                                             <v-list-item>
-                                                <v-chip
-                                                    :link="`/departments/category/${categories?.categories_id?.slug}`">
-                                                    {{ categories?.categories_id?.name }}</v-chip>
+                                                <v-chip><NuxtLink
+                                                    :to="`/departments/category/${categories?.categories_id?.slug}`">
+                                                    {{ categories?.categories_id?.name }}</NuxtLink></v-chip>
                                             </v-list-item>
                                         </v-col>
                                     </v-row>

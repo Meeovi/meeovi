@@ -1,6 +1,9 @@
+import type {
+  NuxtPage
+} from "nuxt/schema";
 import {
-  defineNuxtConfig
-} from "nuxt/config";
+  resolve
+} from "node:path";
 import {
   useLayers
 } from 'nuxt-layers-utils'
@@ -35,9 +38,14 @@ export default defineNuxtConfig({
         lang: 'en',
       },
       meta: [{
-        name: 'description',
-        content: 'Base Application for Meeovi Framework'
-      }],
+          name: 'apple-mobile-web-app-title',
+          content: process.env.NUXT_PUBLIC_SITE_NAME || 'Base Application'
+        },
+        {
+          name: 'description',
+          content: `${process.env.NUXT_PUBLIC_SITE_DESCRIPTION || 'Base Application'}`
+        }
+      ],
       link: [{
           rel: 'icon',
           href: '/favicon.ico'
@@ -51,7 +59,7 @@ export default defineNuxtConfig({
   },
 
   appConfig: {
-    titleSuffix: '',
+    titleSuffix: `${process.env.NUXT_PUBLIC_SITE_DESCRIPTION || 'Base Application'}`,
   },
 
   css: [
@@ -137,6 +145,24 @@ export default defineNuxtConfig({
     ],
   },
 
+  hooks: {
+    'pages:extend': function (pages) {
+      const pagesToRemove: NuxtPage[] = []
+      pages.forEach((page) => {
+        if (page.path.includes('component') || page.path.includes('/api')) {
+          pagesToRemove.push(page)
+        }
+      })
+
+      pagesToRemove.forEach((page: NuxtPage) => {
+        pages.splice(pages.indexOf(page), 1)
+      })
+      // Uncomment to show current Routes
+      // console.log(`\nCurrent Routes:`)
+      // console.log(pages)
+      // console.log(`\n`)
+    }
+  },
   runtimeConfig: generateRuntimeConfig(),
 
   image: {
@@ -158,6 +184,14 @@ export default defineNuxtConfig({
     prerender: {
       routes: ['/assets/images/*']
     },
+    preset: process.env.NUXT_NITRO_PRESET,
+    rollupConfig: {
+      external: process.env.NUXT_NITRO_PRESET != 'node-server' ? ['pg-native'] : undefined
+    },
+    publicAssets: process.env.NUXT_APP_STORAGE === 'local' ? [{
+      dir: resolve(process.env.NUXT_LOCAL_UPLOAD_DIR || './uploads'),
+      baseURL: process.env.NUXT_LOCAL_PUBLIC_PATH || '/uploads'
+    }] : undefined,
     compressPublicAssets: true,
     storage: {
       redis: {
@@ -167,8 +201,10 @@ export default defineNuxtConfig({
         password: process.env.REDIS_PASSWORD || ''
       }
     },
-    experimental: {
-      websocket: true
+  },
+  $production: {
+    build: {
+      transpile: ['zod', '@polar-sh']
     }
   },
 

@@ -19,7 +19,7 @@
           <div class="search-panel__results">
             <div class="searchbox">
               <ais-search-box placeholder="" />
-              <input v-if="isDev" v-model="searchQuery" placeholder="Debug: search input" class="debug-search-input" />
+              <v-text-field v-if="isDev" v-model="searchQuery" placeholder="Debug: search input" class="debug-search-input"></v-text-field>
             </div>
             <ais-hits>
               <template v-slot:item="{ item, index }">
@@ -55,10 +55,10 @@
     watch
   } from 'vue';
   import Client from '@searchkit/instantsearch-client'
-  import Searchkit from "searchkit"
-  import {
-    useRuntimeConfig
-  } from '#app'
+
+  const searchClient = Client({
+    url: '/api/search'
+  })
 
   const configDetails = useRuntimeConfig()
 
@@ -67,59 +67,6 @@
   const indexName = configDetails.public.indexName;
   const isDev = process.env.NODE_ENV !== 'production'
 
-  if (process.env.NODE_ENV !== 'production') {
-    // eslint-disable-next-line no-console
-    console.debug('[search] indexName', indexName)
-  }
-
-  // Read search connection values from runtime config for security.
-  // Set these in `nuxt.config.ts` runtimeConfig.public.search: { host, apiKey }
-  const searchHost = (configDetails.public as any).search?.host;
-  const searchApiKey = (configDetails.public as any).search?.apiKey;
-
-  if (!searchHost || !searchApiKey) {
-    // warn in dev if runtime config not set
-    // eslint-disable-next-line no-console
-    console.warn('Missing runtimeConfig.public.search host or apiKey');
-  }
-
-  const config = {
-    connection: {
-      host: searchHost || 'https://commerce-demo.es.us-east4.gcp.elastic-cloud.com:9243',
-      apiKey: searchApiKey || ''
-    },
-    search_settings: {
-      highlight_attributes: ['title'],
-      search_attributes: [{
-        field: 'title',
-        weight: 3
-      }, 'actors', 'plot'],
-      result_attributes: ['*'],
-      facet_attributes: [
-        'type',
-        {
-          attribute: 'actors',
-          field: 'actors.keyword',
-          type: 'string'
-        }
-      ],
-      sorting: {
-        default: {
-          field: '_score',
-          order: 'desc'
-        },
-        _rated_desc: {
-          field: 'rated',
-          order: 'desc'
-        }
-      },
-      snippet_attributes: ['*'],
-      query_rules: []
-    }
-  }
-
-  const searchkitClient = new Searchkit(config as any)
-  const searchClient = Client(searchkitClient);
 
   if (process.env.NODE_ENV !== 'production') {
     // eslint-disable-next-line no-console
@@ -137,5 +84,4 @@
       }
     });
   }
-
 </script>

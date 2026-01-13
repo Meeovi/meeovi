@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="border border-neutral-200 rounded-md hover:shadow-lg max-w-[300px]">
-      <div class="relative" v-if="product?.image?.filename_disk?.length > 0">
+      <div class="relative" v-if="product?.image?.length > 0">
         <NuxtLink :to="`/product/${product?.id}`" class="block">
           <img :src="`${$directus.url}assets/${product?.image?.filename_disk}`" :alt="product?.name"
             class="block object-cover h-auto rounded-md aspect-square" width="300" height="300" />
@@ -15,7 +15,7 @@
 
       <div class="relative" v-else>
         <NuxtLink :to="`/product/${product?.id}`" class="block">
-          <img src="assets/images/mbr-1920x1893.png" :alt="product?.name"
+          <img src="~/assets/images/mbr-1920x1893.png" :alt="product?.name"
             class="block object-cover h-auto rounded-md aspect-square" width="300" height="300" />
         </NuxtLink>
         <v-btn variant="flat" size="sm" square
