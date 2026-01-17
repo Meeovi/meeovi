@@ -1,0 +1,6 @@
+{
+  "errors": {
+    "authorizationError": "Your session expired, please log in again.",
+    "customerNotVerified": "Sorry, you are not allowed to access this page, please log in."
+  }
+}

@@ -11,8 +11,7 @@ import type { Subscription } from '@polar-sh/sdk/models/components/subscription.
 import type { CustomerSeat } from '@polar-sh/sdk/models/components/customerseat.js'
 import { checkout, polar, portal, usage, webhooks } from '@polar-sh/better-auth'
 import { Polar } from '@polar-sh/sdk'
-import { eq } from 'drizzle-orm'
-import { profiles as userTable } from '../database/schema'
+import { prisma } from './db'
 import { runtimeConfig } from './runtimeConfig'
 import { User } from 'better-auth/types'
 import { logAuditEvent } from './auditLogger'
@@ -63,10 +62,7 @@ const addPaymentLog = async (hookType: string, data: Customer | Checkout | Benef
   } else if (hookType.startsWith('customer.')) {
     const customer = data as Customer
     if (hookType == 'customer.created' && customer.externalId) {
-      const db = await useDB()
-      await db.update(userTable).set({
-        polarCustomerId: customer.id
-      } as any).where(eq(userTable.id, customer.externalId))
+      await prisma.users.update({ where: { id: customer.externalId }, data: { polarCustomerId: customer.id } as any })
     }
     await logAuditEvent({
       userId: customer.externalId || undefined,

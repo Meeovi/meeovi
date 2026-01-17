@@ -1,42 +1,26 @@
-import {
-  createError,
-  type H3Event
+import type {
+  H3Event
 } from 'h3'
 import type {
   User
-} from '../../shared/utils/types'
+} from '~~/shared/utils/types'
 import {
   betterAuth
 } from 'better-auth'
-import {
-  drizzleAdapter
-} from 'better-auth/adapters/drizzle'
 import {
   APIError,
   createAuthMiddleware
 } from 'better-auth/api'
 import {
   admin,
-  openAPI,
-  username,
-  twoFactor,
-  phoneNumber,
-  magicLink,
-  emailOTP, lastLoginMethod, captcha, deviceAuthorization, multiSession, haveIBeenPwned
+  openAPI
 } from 'better-auth/plugins'
-import {
-  passkey
-} from "@better-auth/passkey"
 import {
   v7 as uuidv7
 } from 'uuid'
-import * as schema from '../database/schema'
 import {
   logAuditEvent
 } from './auditLogger'
-import {
-  getDB
-} from './db'
 import {
   cacheClient,
   resendInstance
@@ -50,17 +34,23 @@ import {
 import {
   setupStripe
 } from './stripe'
+import {
+  prismaAdapter
+} from "better-auth/adapters/prisma";
+import { prisma } from './db'
 
 console.log(`Base URL is ${runtimeConfig.public.baseURL}`)
 
 export const createBetterAuth = () => betterAuth({
-  baseURL: `${runtimeConfig.public.baseURL}` || '',
-  trustedOrigins: ['http://localhost:3011', `${runtimeConfig.public.baseURL}` || ''],
+  baseURL: runtimeConfig.public.baseURL,
+  trustedOrigins: ['http://0.0.0.0:3011', runtimeConfig.public.baseURL],
   secret: runtimeConfig.betterAuthSecret,
-  database: drizzleAdapter(
-    getDB(), {
-      provider: 'pg',
-      schema
+  experimental: {
+    joins: true
+  },
+  database: prismaAdapter(
+    prisma, {
+      provider: 'postgresql',
     }
   ),
   advanced: {
@@ -77,6 +67,9 @@ export const createBetterAuth = () => betterAuth({
         required: false,
         defaultValue: null
       }
+    },
+    deleteUser: {
+      enabled: true,
     }
   },
   secondaryStorage: cacheClient,
@@ -170,7 +163,7 @@ export const createBetterAuth = () => betterAuth({
         targetId = ctx.context.session?.user.id || ctx.context.newSession?.user.id
       } else if (['/sign-in/email', '/sign-up/email', 'forget-password'].includes(ctx.path)) {
         targetType = 'email'
-        targetId = (ctx.body as { email?: string } | undefined)?.email || ''
+        targetId = ctx.body.email || ''
       }
       const returned = ctx.context.returned
       if (returned && returned instanceof APIError) {
@@ -224,77 +217,15 @@ export const createBetterAuth = () => betterAuth({
   },
   plugins: [
     ...(runtimeConfig.public.appEnv === 'development' ? [openAPI()] : []),
-    admin(),
+    admin({
+      defaultRole: "seller",
+      defaultBanExpiresIn: 7 * 24 * 60 * 60,
+      defaultBanReason: "Spamming",
+      impersonationSessionDuration: 1 * 24 * 60 * 60
+    }),
     setupStripe(),
-    setupPolar(),
-    username({
-      minUsernameLength: 5,
-      maxUsernameLength: 10,
-      usernameValidator: (username) => {
-        if (username === "admin") {
-          return false
-        }
-        return true
-      }
-    }),
-    twoFactor({
-      issuer: `${runtimeConfig.public.appName}`
-    }),
-    /*phoneNumber({
-      sendOTP: ({
-        phoneNumber,
-        code,
-        password,
-        rememberMe: true,
-      }, ctx) => {
-        // Implement sending OTP code via SMS
-      },
-      signUpOnVerification: {
-        getTempEmail: (phoneNumber) => {
-          return `${phoneNumber}@${runtimeConfig.public.appSite}`
-        },
-        //optionally, you can also pass `getTempName` function to generate a temporary name for the user
-        getTempName: (phoneNumber) => {
-          return phoneNumber //by default, it will use the phone number as the name
-        }
-      }
-    }),
-    magicLink({
-      sendMagicLink: async ({
-        email,
-        token,
-        url
-      }, ctx) => {
-        // send email to user
-      }
-    }),
-    emailOTP({
-      async sendVerificationOTP({
-        email,
-        otp,
-        type
-      }) {
-        if (type === "sign-in") {
-          // Send the OTP for sign in
-        } else if (type === "email-verification") {
-          // Send the OTP for email verification
-        } else {
-          // Send the OTP for password reset
-        }
-      },
-    }),*/
-    passkey(),
-    captcha({
-      provider: "cloudflare-turnstile", // or google-recaptcha, hcaptcha, captchafox
-      secretKey: process.env.TURNSTILE_SECRET_KEY!,
-    }),
-    deviceAuthorization({
-      verificationUri: "/device",
-    }),
-    lastLoginMethod(),
-    multiSession(),
-    haveIBeenPwned()
-  ]
+    setupPolar()
+  ] as any[]
 })
 
 let _auth: ReturnType < typeof betterAuth >
@@ -318,13 +249,14 @@ export const auth = _auth!
   }
 
 export const getAuthSession = async (event: H3Event) => {
-      const headers = event.headers
-      const serverAuth = useServerAuth()
-      const session = await serverAuth.api.getSession({
-        headers
-      })
-      return session
+  const headers = event.headers
+  const serverAuth = useServerAuth()
+  const session = await serverAuth.api.getSession({
+    headers
+  })
+  return session
 }
+
 export const requireAuth = async (event: H3Event) => {
   const session = await getAuthSession(event)
   if (!session || !session.user) {

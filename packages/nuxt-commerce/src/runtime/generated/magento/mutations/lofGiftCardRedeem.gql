@@ -1,6 +1,0 @@
-mutation lofGiftCardRedeem($code: String!, $customer_id: String!){
-    lofGiftCardRedeem(code: $code, customer_id: $customer_id){
-        code
-        message
-    }
-}

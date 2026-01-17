@@ -1,4 +1,4 @@
-import type { file, user } from '../../server/database/schema'
+import type { user as PrismaUser, directus_files as PrismaFile } from '../../prisma/generated/models'
 
-export type User = typeof user.$inferSelect
-export type FileRecord = typeof file.$inferSelect
+export type User = PrismaUser
+export type FileRecord = PrismaFile

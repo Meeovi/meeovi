@@ -10,7 +10,6 @@ export default defineNuxtRouteMiddleware(async (to) => {
     const isUserSeller = !!(loggedIn.value && typeof loggedIn.value !== 'boolean' && (loggedIn.value as { user?: { role?: string } }).user?.role === 'seller');
 
     if (isUserNavigatingToAdminOnly && !isUserSeller) {
-        return navigateTo('/');
+        return navigateTo('/seller-dashboard');
     }
-
 });

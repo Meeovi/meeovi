@@ -1,0 +1,13 @@
+{
+  "name": "@storefront-x/vue-i18n",
+  "version": "1.32.1",
+  "license": "MIT",
+  "type": "module",
+  "dependencies": {
+    "@intlify/unplugin-vue-i18n": "^2.0.0",
+    "vue-i18n": "^9.9.1"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

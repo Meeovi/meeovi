@@ -1,5 +1,4 @@
-import { auditLog } from '../database/schema/auditLog'
-import { getDB } from './db'
+import { logAuditEvent as prismaLogAuditEvent } from '../database/schema/auditLog'
 
 export async function logAuditEvent(data: {
   userId?: string
@@ -13,17 +12,16 @@ export async function logAuditEvent(data: {
   details?: string
 }) {
   try {
-    const db = getDB()
-    await db.insert(auditLog).values({
-      userId: data.userId,
+    await prismaLogAuditEvent({
+      userId: data.userId ?? null,
       category: data.category,
       action: data.action,
-      targetType: data.targetType,
-      targetId: data.targetId,
-      ipAddress: data.ipAddress,
-      userAgent: data.userAgent,
-      status: data.status || 'success',
-      details: data.details
+      targetType: data.targetType ?? null,
+      targetId: data.targetId ?? null,
+      ipAddress: data.ipAddress ?? null,
+      userAgent: data.userAgent ?? null,
+      status: data.status ?? 'success',
+      details: data.details ?? null
     })
   } catch (error) {
     console.error('Failed to log audit event:', error)

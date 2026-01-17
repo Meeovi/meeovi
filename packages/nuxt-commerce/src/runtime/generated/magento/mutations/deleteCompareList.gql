@@ -1,5 +1,0 @@
-mutation deleteCompareList($uid: ID!){
-    deleteCompareList(uid: $uid){
-        result
-    }
-}

@@ -2,13 +2,9 @@ import { pgTable, foreignKey, serial, varchar, integer, uuid, timestamp, text, j
 import { sql } from "drizzle-orm"
 
 export const spaces = pgTable("spaces", {
-	id: serial().primaryKey().notNull(),
-	status: varchar({ length: 255 }).default('draft').notNull(),
-	sort: integer(),
-	userCreated: uuid("user_created"),
-	dateCreated: timestamp("date_created", { withTimezone: true, mode: 'string' }),
-	userUpdated: uuid("user_updated"),
-	dateUpdated: timestamp("date_updated", { withTimezone: true, mode: 'string' }),
+// Drizzle schema removed — use Prisma models instead.
+// This file was kept as a compatibility shim to avoid breaking imports during migration.
+export const __deprecated_schema = {}
 	name: varchar({ length: 255 }),
 	numberOfMembers: integer(),
 	description: text(),

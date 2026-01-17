@@ -1,5 +1,3 @@
-import { eq } from 'drizzle-orm'
-import { profiles as userTable } from '../../../database/schema'
 import { useDB } from '../../../utils/db'
 import { ensurePolarCustomer } from '../../../utils/polar'
 import { runtimeConfig } from '../../../utils/runtimeConfig'
@@ -9,7 +7,7 @@ export default defineEventHandler(async (event) => {
   const db = await useDB(event)
 
   // Get all users from database
-  const users = await db.select().from(userTable)
+  const users = await (db as any).profiles.findMany()
 
   const results = {
     totalUsers: users.length,
@@ -31,9 +29,7 @@ export default defineEventHandler(async (event) => {
       try {
         const customer = await ensureStripeCustomer(user)
         if (customer) {
-          await db.update(userTable).set({
-            stripeCustomerId: customer.id
-          }).where(eq(userTable.id, user.id))
+          await (db as any).profiles.update({ where: { id: user.id }, data: { stripeCustomerId: customer.id } })
         }
         results.stripeResults.push({
           userId: user.id,
@@ -60,9 +56,7 @@ export default defineEventHandler(async (event) => {
       try {
         const customer = await ensurePolarCustomer(user)
         if (customer && customer.externalId) {
-          await db.update(userTable).set({
-            polarCustomerId: customer.id
-          }).where(eq(userTable.id, user.id))
+          await (db as any).profiles.update({ where: { id: user.id }, data: { polarCustomerId: customer.id } })
         }
         results.polarResults.push({
           userId: user.id,

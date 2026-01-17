@@ -1,74 +1,24 @@
-import {
-  boolean,
-  integer,
-  pgTable,
-  text,
-  timestamp,
-  uuid
-} from 'drizzle-orm/pg-core'
+import { prisma } from '../../utils/db'
+import type { usersModel as User } from '../../prisma/generated/models/users'
+import type { usersCreateInput } from '../../prisma/generated/models/users'
 
-export const user = pgTable('user', {
-  id: uuid('id').primaryKey(),
-  name: text('name').notNull(),
-  email: text('email').notNull().unique(),
-  emailVerified: boolean('email_verified').default(false).notNull(),
-  image: text('image'),
-  createdAt: timestamp('created_at').defaultNow().notNull(),
-  updatedAt: timestamp('updated_at')
-    .defaultNow()
-    .$onUpdate(() => /* @__PURE__ */ new Date())
-    .notNull(),
-  role: text('role'),
-  banned: boolean('banned').default(false),
-  banReason: text('ban_reason'),
-  banExpires: timestamp('ban_expires'),
-  stripeCustomerId: text('stripe_customer_id'),
-  polarCustomerId: text('polar_customer_id')
-})
+/**
+ * This module replaces the previous drizzle-orm table definitions with Prisma.
+ * It exports a `prisma` client instance and the generated `User` type alias
+ * so other code can import types from here. Note: other modules that relied
+ * on drizzle `pgTable` column builders (e.g. `user.id`) will need to be
+ * updated to use Prisma queries or the generated models.
+ */
+export { prisma }
 
-export const account = pgTable('account', {
-  id: uuid('id').primaryKey(),
-  accountId: text('account_id').notNull(),
-  providerId: text('provider_id').notNull(),
-  userId: uuid('user_id')
-    .notNull()
-    .references(() => user.id, { onDelete: 'cascade' }),
-  accessToken: text('access_token'),
-  refreshToken: text('refresh_token'),
-  idToken: text('id_token'),
-  accessTokenExpiresAt: timestamp('access_token_expires_at'),
-  refreshTokenExpiresAt: timestamp('refresh_token_expires_at'),
-  scope: text('scope'),
-  password: text('password'),
-  createdAt: timestamp('created_at').defaultNow().notNull(),
-  updatedAt: timestamp('updated_at')
-    .$onUpdate(() => /* @__PURE__ */ new Date())
-    .notNull()
-})
+export type { User }
 
-export const verification = pgTable('verification', {
-  id: uuid('id').primaryKey(),
-  identifier: text('identifier').notNull(),
-  value: text('value').notNull(),
-  expiresAt: timestamp('expires_at').notNull(),
-  createdAt: timestamp('created_at').defaultNow().notNull(),
-  updatedAt: timestamp('updated_at')
-    .defaultNow()
-    .$onUpdate(() => /* @__PURE__ */ new Date())
-    .notNull()
-})
+export type UserCreateInput = usersCreateInput
 
-export const subscription = pgTable('subscription', {
-  id: uuid('id').primaryKey(),
-  plan: text('plan').notNull(),
-  referenceId: text('reference_id').notNull(),
-  stripeCustomerId: text('stripe_customer_id'),
-  stripeSubscriptionId: text('stripe_subscription_id'),
-  status: text('status').default('incomplete'),
-  periodStart: timestamp('period_start'),
-  periodEnd: timestamp('period_end'),
-  trialStart: timestamp('trial_start'),
-  trialEnd: timestamp('trial_end'),
-  cancelAtPeriodEnd: boolean('cancel_at_period_end').default(false),
-  seats: integer('seats')
-})
+export const getUserById = async (id: string) => {
+  return prisma.users.findUnique({ where: { id } })
+}
+
+export const createUser = async (data: UserCreateInput) => {
+  return prisma.users.create({ data: data as any })
+}

@@ -1,3 +1,0 @@
-mutation createBraintreePayPalVaultClientToken($input: BraintreeVaultInput){
-    createBraintreePayPalVaultClientToken(input: $input)
-}

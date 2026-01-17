@@ -1,10 +1,8 @@
 import type { Subscription } from '@better-auth/stripe'
 import { stripe } from '@better-auth/stripe'
-import { eq } from 'drizzle-orm'
 import Stripe from 'stripe'
-import { profiles as userTable } from '../database/schema'
 import { logAuditEvent } from './auditLogger'
-import { useDB } from './db'
+import { prisma } from './db'
 import { runtimeConfig } from './runtimeConfig'
 import { User } from 'better-auth/types'
 
@@ -43,11 +41,8 @@ export const ensureStripeCustomer = async (user: User) => {
 }
 
 const getUserByStripeCustomerId = async (stripeCustomerId: string) => {
-  const db = await useDB()
-  const user = db.query.profiles.findFirst({
-    where: eq(userTable.stripeCustomerId, stripeCustomerId)
-  })
-  return user
+  const user = await prisma.profiles.findFirst({ where: { stripeCustomerId: stripeCustomerId } as any })
+  return user as any
 }
 
 const addPaymentLog = async (action: string, subscription: Subscription) => {

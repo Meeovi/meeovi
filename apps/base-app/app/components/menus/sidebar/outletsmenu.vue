@@ -4,7 +4,7 @@
       <v-expansion-panel title="Outlets" expand-icon="fas:fa fa-plus" collapse-icon="fas:fa fa-minus" elevation="0">
         <v-expansion-panel-text>
           <v-list v-for="child in outlets" :key="child.id" class="ml-4">
-            <v-list-item :title="child.name" :value="child.name" :href="`/outlets/${child.slug}`">
+            <v-list-item :title="child.name" :value="child.name" :href="`/departments/${child.slug}`">
             </v-list-item>
           </v-list>
         </v-expansion-panel-text>
@@ -28,7 +28,7 @@
           _eq: 'active'
         },
         type: {
-          _eq: 'outlets'
+          _eq: 'outlet'
         }
       },
       fields: ['*', {

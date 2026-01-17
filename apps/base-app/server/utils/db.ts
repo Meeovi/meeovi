@@ -1,44 +1,25 @@
-import type { NodePgDatabase } from 'drizzle-orm/node-postgres'
-import type { EventHandlerRequest, H3Event } from 'h3'
-import { drizzle } from 'drizzle-orm/node-postgres'
+import { PrismaPg } from '@prisma/adapter-pg'
+import { PrismaClient } from '../../prisma/generated/client'
 
-import * as schema from '../database/schema'
-import { getPgPool } from './drivers'
-import { runtimeConfig } from './runtimeConfig'
-
-const createDB = (dbSchema?: typeof schema) => {
-  return drizzle({ client: getPgPool(), schema: dbSchema })
+const prismaClientSingleton = () => {
+  const pool = new PrismaPg({ connectionString: process.env.NUXT_DATABASE_URL! })
+  return new PrismaClient({ adapter: pool })
 }
 
-let db: ReturnType<typeof createDB>
+type PrismaClientSingleton = ReturnType<typeof prismaClientSingleton>
 
-export const getDB = () => {
-  if (runtimeConfig.preset == 'node-server') {
-    if (!db) {
-      db = createDB()
-    }
-    return db
-  } else {
-    return createDB()
-  }
+const globalForPrisma = globalThis as unknown as {
+  prisma: PrismaClientSingleton | undefined
 }
 
-// use db with schema
-export const useDB = async (event?: H3Event<EventHandlerRequest>): Promise<NodePgDatabase<typeof schema>> => {
-  // If the event has a context with a db property, return it
-  if (event && event.context.db) {
-    return event.context.db
-  }
-  // Otherwise, create a new connection to the database
-  const dbInstance = createDB(schema)
-  if (event) {
-    event.context.db = dbInstance
-  }
-  return dbInstance
+export const prisma = globalForPrisma.prisma ?? prismaClientSingleton()
+
+if (process.env.NODE_ENV !== 'production') globalForPrisma.prisma = prisma
+
+export const useDB = async (_event?: any) => {
+  return prisma
 }
 
-export type TableNames = keyof typeof schema
-
-export function isValidTable(table: string): table is TableNames {
-  return table in schema
+export function isValidTable(name: string) {
+  return typeof (prisma as any)[name] !== 'undefined'
 }

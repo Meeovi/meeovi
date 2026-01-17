@@ -1,6 +1,7 @@
 {
   "name": "meeovi",
   "private": true,
+  "packageManager": "npm@9.8.1",
   "scripts": {
     "build": "turbo run build",
     "dev": "turbo run dev",
@@ -18,7 +19,9 @@
     "typescript": "5.8.2"
   },
   "workspaces": [
-    "apps/**",
+    "apps/*",
+    "apps/*/*",
+    "apps/*/*/*",
     "packages/*"
   ],
   "dependencies": {}

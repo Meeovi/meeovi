@@ -1,5 +1,0 @@
-mutation createVaultCardPaymentToken($input: CreateVaultCardPaymentTokenInput!){
-    createVaultCardPaymentToken(input: $input){
-        vault_token_id
-    }
-}

@@ -1,8 +1,5 @@
 import type { PgColumn } from 'drizzle-orm/pg-core'
-import { getTableColumns, sql } from 'drizzle-orm'
-import { PgTable } from 'drizzle-orm/pg-core'
 import { z } from 'zod'
-import * as schema from '../../../../database/schema'
 import { isValidTable, useDB } from '../../../../utils/db'
 import { filterSchema, processFilters, withFilters } from '../../../../utils/query'
 import { createError } from '#imports'
@@ -50,44 +47,15 @@ export default eventHandler(async (event) => {
     })
   }
 
-  const table = schema[tableName]
-  if (!(table instanceof PgTable)) {
-    throw createError(
-      {
-        statusCode: 400,
-        statusMessage: 'Bad Request',
-        data: 'INVALID_TABLE_TYPE',
-        message: 'Invalid Table Name'
-      }
-    )
-  }
-  const columns = getTableColumns(table)
-
-  if (!(columnName in columns)) {
-    throw createError({
-      statusCode: 400,
-      statusMessage: 'Bad Request',
-      data: 'INVALID_COLUMN_NAME',
-      message: 'Invalid Column Name'
-    })
-  }
-
   const db = await useDB(event)
 
-  const columnKey = columnName as keyof typeof columns
-  const column = columns[columnKey] as PgColumn
-  const countQuery = db.select({ column, count: sql<number>`cast(count(*) as int)` })
-    .from(table)
-    .groupBy(column)
-    .$dynamic()
+  const where = query?.filter ? withFilters(undefined as any, processFilters(query.filter)) : undefined
 
-  if (query?.filter) {
-    const filters = processFilters(query.filter, columns)
-    if (filters.length) {
-      withFilters(countQuery, filters)
-    }
+  const model = (db as any)[tableName]
+  try {
+    const groups = await model.groupBy({ by: [columnName], where, _count: { _all: true } as any })
+    return groups.map((g: any) => ({ [columnName]: g[columnName], count: g._count?._all ?? 0 }))
+  } catch (err: any) {
+    throw createError({ statusCode: 400, statusMessage: 'Bad Request', data: 'INVALID_QUERY', message: err?.message || 'Invalid query' })
   }
-
-  const result = await countQuery
-  return result
 })

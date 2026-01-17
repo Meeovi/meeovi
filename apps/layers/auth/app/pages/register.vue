@@ -34,7 +34,7 @@
                   </div>
 
                   <div class="mb-3">
-                    <v-checkbox v-model="wantsSeller" label="I want to sell products on this platform"
+                    <v-checkbox v-model="wantsSeller" label="Register as Seller"
                       density="comfortable" />
                   </div>
                   
@@ -69,7 +69,13 @@
 </template>
 
 <script setup lang="ts">
+import { computed, reactive, ref } from 'vue'
+import { useAuth } from '../composables/useAuth'
+import { z, type  output as zodOutput } from 'zod'
+import { useToast, definePageMeta, useI18n, useHead, useRoute, useLocalePath } from '#imports'
+
 definePageMeta({
+  layout: false,
   auth: {
     only: 'guest'
   }
@@ -85,6 +91,11 @@ const auth = useAuth()
 const toast = useToast()
 const route = useRoute()
 const localePath = useLocalePath()
+
+  // Add error and success refs used by the template
+  const error = ref<string | null>(null)
+  const success = ref<string | null>(null)
+  const wantsSeller = ref(false)
 
 const redirectTo = computed(() => {
   const redirect = route.query.redirect as string
@@ -113,34 +124,36 @@ const state = reactive<Partial<Schema>>({
 const loading = ref(false)
 const loadingAction = ref('')
 
+type FormSubmitEvent<T> = SubmitEvent & { data: T }
+
 async function onSocialLogin(action: 'google' | 'github') {
   loading.value = true
   loadingAction.value = action
   auth.signIn.social({ provider: action, callbackURL: redirectTo.value })
 }
 
-async function onSubmit(event: FormSubmitEvent<Schema>) {
+async function onSubmit(event: SubmitEvent) {
   if (loading.value)
     return
+  event.preventDefault()
   loading.value = true
   loadingAction.value = 'submit'
+
+  const submitEvent = event as unknown as FormSubmitEvent<Schema>
+  const formData = submitEvent.data ?? {}
+
   const { error } = await auth.signUp.email({
-    name: event.data.name,
-    email: event.data.email,
-    password: event.data.password,
+    name: formData.name ?? state.name ?? '',
+    email: formData.email ?? state.email ?? '',
+    password: formData.password ?? state.password ?? '',
     polarCustomerId: ''
   })
   if (error) {
-    toast.add({
-      title: error.message || error.statusText,
-      color: 'error'
-    })
+    const message = error.message || (error as any).statusText || ''
+    toast.error({ message })
   }
   else {
-    toast.add({
-      title: t('signUp.sendEmailSuccess'),
-      color: 'success'
-    })
+    toast.success({ message: t('signUp.sendEmailSuccess') })
     state.name = undefined
     state.email = undefined
     state.password = undefined

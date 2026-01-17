@@ -1,5 +1,0 @@
-mutation createVaultCardSetupToken($input: CreateVaultCardSetupTokenInput!){
-    createVaultCardSetupToken(input: $input){
-        setup_token
-    }
-}

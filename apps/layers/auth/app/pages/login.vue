@@ -14,39 +14,31 @@
               </h2>
             </div>
             <div class="form-wrap">
-              <form class="row flex-center flex" :schema="schema" :state="state" @submit="onSubmit">
-                <div class="col-12 form-widget">
-                  <div class="mb-3">
-                    <v-text-field class="inputField" autocomplete="email" type="email" placeholder="Email" v-model="state.email" required />
-                  </div>
-                  <div class="mb-3">
-                    <v-text-field class="inputField" type="password" placeholder="Password" v-model="state.password"
-                      required />
-                  </div>
-                  <div class="mb-3">
-                    <v-checkbox v-model="state.rememberMe" />
-                  </div>
-                  <div class="mb-3">
-                    <div ref="turnstileRef"></div>
-                  </div>
-                  <div>
-                    <v-btn type="submit" class="button block" :disabled="loading">
-                      {{ loading ? 'Loading...' : 'Sign In' }}
-                    </v-btn>
-                  </div>
-                  <div v-if="error" class="error-message mt-3">
-                    {{ error }}
-                  </div>
-                  <div v-if="success" class="success-message mt-3">
-                    {{ success }}
-                  </div>
-                  <div class="mt-3 text-center">
-                    <p>Don't have an account?
-                      <NuxtLink to="/register">Sign Up</NuxtLink>
-                    </p>
-                  </div>
-                </div>
-              </form>
+              <div v-if="selectedLoginMethod === 'none'" class="grid gap-4">
+                <v-btn class="w-full" @click="selectedLoginMethod = 'email'">
+                  <v-icon class="size-4" icon="fas fa-envelope" />
+                  <span class="ml-2">Continue with Email</span>
+                </v-btn>
+                <v-btn variant="outlined" class="w-full" @click="signInWithGoogle">
+                  <v-icon class="size-4" icon="fab fa-google" />
+                  <span class="ml-2">Continue with Google</span>
+                </v-btn>
+              </div>
+
+              <FormKit v-else-if="selectedLoginMethod === 'email'" id="login-form" v-slot="{ state: { valid } }"
+                v-model="loginForm" type="form" :actions="false" @submit="HandleLoginUser">
+                <FormKitSchema :schema="loginFormSchema" />
+                <v-btn class="w-full" type="submit" :disabled="!valid"> Sign in </v-btn>
+                <v-btn variant="text" class="w-full mt-2" @click="selectedLoginMethod = 'none'">
+                  Back to login options
+                </v-btn>
+              </FormKit>
+
+              <div class="mt-3 text-center">
+                <p>Don't have an account?
+                  <NuxtLink to="/register">Sign Up</NuxtLink>
+                </p>
+              </div>
             </div>
             <p class="comment-text mbr-fonts-style align-center mb-0 display-7">
               We respect your privacy, so we never will share your info.
@@ -59,111 +51,85 @@
 </template>
 
 <script setup lang="ts">
-  definePageMeta({
-    auth: {
-      only: 'guest'
-    }
-  })
+  import {
+    ref
+  } from "vue";
+  import {
+    useToast
+  } from "#imports";
+  import {
+    signIn
+  } from "../../../../base-app/lib/auth-client";
+  /**
+   *
+   * Login view
+   *
+   * @author Reflect-Media <reflect.media GmbH>
+   * @version 0.0.1
+   *
+   * @todo [ ] Test the component
+   * @todo [ ] Integration test.
+   * @todo [✔] Update the typescript.
+   */
+  interface Props {
+    redirectUrl ? : string;
+  }
 
-  const {
-    t
-  } = useI18n()
+  const props = withDefaults(defineProps < Props > (), {
+    redirectUrl: "/",
+  });
 
-  useHead({
-    title: t('signIn.signIn')
-  })
-  const auth = useAuth()
+  const loginForm = ref({
+    email: "",
+    password: "",
+  });
+
+  const selectedLoginMethod = ref < 'none' | 'email' | 'google' > ('none');
+
+  const loginFormSchema = [{
+      $formkit: "text",
+      name: "email",
+      label: "Email",
+      validation: "required|email",
+    },
+    {
+      $formkit: "password",
+      name: "password",
+      label: "Password",
+      validation: "required|length:5,16",
+    },
+  ];
+
   const toast = useToast()
-  const route = useRoute()
-  const localePath = useLocalePath()
 
-  const redirectTo = computed(() => {
-    const redirect = route.query.redirect as string
-    return localePath(redirect || '/')
-  })
+  const HandleLoginUser = async () => {
+    await signIn.email({
+      email: loginForm.value.email,
+      password: loginForm.value.password,
+      callbackURL: props.redirectUrl,
+      fetchOptions: {
+        onError: (context) => {
+          toast.error({
+            title: "Please try again",
+            message: context?.error?.message || "Please check your email and password",
+          });
+        },
+      },
+    });
+  };
 
-  const schema = z.object({
-    email: z.email(t('signIn.errors.invalidEmail')),
-    password: z.string().min(8, t('signIn.errors.passwordLength', {
-      min: 8
-    })),
-    rememberMe: z.boolean().optional()
-  })
-  type Schema = zodOutput < typeof schema >
-
-    const state = reactive < Partial < Schema >> ({
-      email: undefined,
-      password: undefined,
-      rememberMe: false
-    })
-
-  const loading = ref(false)
-  const loadingAction = ref('')
-  const isEmailVerifyModalOpen = ref(false)
-  const resendLoading = ref(false)
-  let unverifiedEmail = ''
-
-  async function onSocialLogin(action: 'google' | 'github') {
-    loading.value = true
-    loadingAction.value = action
-    auth.signIn.social({
-      provider: action,
-      callbackURL: redirectTo.value
-    })
-  }
-
-  async function onSubmit(event: FormSubmitEvent < Schema > ) {
-    if (loading.value)
-      return
-    loading.value = true
-    loadingAction.value = 'submit'
-    const {
-      error
-    } = await auth.signIn.email({
-      email: event.data.email,
-      password: event.data.password,
-      rememberMe: event.data.rememberMe,
-      callbackURL: redirectTo.value
-    })
-    if (error) {
-      if (error.code === auth.errorCodes.EMAIL_NOT_VERIFIED) {
-        unverifiedEmail = event.data.email
-        isEmailVerifyModalOpen.value = true
-        loading.value = false
-        return
+  const signInWithGoogle = async () => {
+    await signIn.social({
+      provider: "google",
+      callbackURL: props.redirectUrl,
+      fetchOptions: {
+        onError: (context) => {
+          toast.error({
+            title: "Please try again",
+            message: context?.error?.message || "Please check your email and password",
+          });
+        },
       }
-      toast.add({
-        title: error.message,
-        color: 'error'
-      })
-    }
-    loading.value = false
-  }
-
-  async function handleResendEmail() {
-    if (resendLoading.value)
-      return
-    resendLoading.value = true
-    const {
-      error
-    } = await auth.sendVerificationEmail({
-      email: unverifiedEmail,
-      callbackURL: redirectTo.value
     })
-    if (error) {
-      toast.add({
-        title: error.message,
-        color: 'error'
-      })
-    } else {
-      toast.add({
-        title: t('signIn.sendEmailSuccess'),
-        color: 'success'
-      })
-    }
-
-    isEmailVerifyModalOpen.value = false
-    resendLoading.value = false
   }
-
 </script>

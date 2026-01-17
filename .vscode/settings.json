@@ -1,7 +1,11 @@
 {
     "chat.tools.terminal.autoApprove": {
         "npm install": true,
-        "npx tsc": true
+        "npx tsc": true,
+        "/^pnpm -w -s tsc --noEmit$/": {
+            "approve": true,
+            "matchCommandLine": true
+        }
     },
     "typescript.tsdk": "node_modules/typescript/lib"
 }

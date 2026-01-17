@@ -26,6 +26,9 @@
       filter: {
         active: {
           _eq: 'active'
+        },
+        type: {
+          _eq: 'department'
         }
       },
       fields: ['*', {

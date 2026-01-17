@@ -1,0 +1,17 @@
+{
+  "name": "@storefront-x/base-commerce",
+  "version": "1.32.1",
+  "license": "MIT",
+  "type": "module",
+  "dependencies": {
+    "keen-slider": "^6.8.6",
+    "photoswipe": "^5.4.3",
+    "sharp": "^0.32.6"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "devDependencies": {
+    "@types/sharp": "^0.32.0"
+  }
+}

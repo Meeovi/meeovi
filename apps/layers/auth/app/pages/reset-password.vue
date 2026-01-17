@@ -73,12 +73,12 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
   })
 
   if (error) {
-    toast.add({
+    toast.show({
       title: error.message,
       color: 'error'
     })
   } else {
-    toast.add({
+    toast.show({
       title: t('resetPassword.success'),
       color: 'success'
     })

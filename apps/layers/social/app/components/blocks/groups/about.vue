@@ -1,15 +1,17 @@
 <template>
     <div>
         <section data-bs-version="5.1" class="header6 cid-sBXV7XsZQm" id="header6-2i"
-            :style="`background-image: url('../../../assets/images/background2.jpg'); background-position: center;`">
+            :style="`background-image: url('${backgroundImage}'); background-position: center;`">
             <div class="mbr-overlay" style="opacity: 0.2; background-color: rgb(68, 121, 217);"></div>
             <div class="align-center container-fluid">
                 <div class="row justify-content-center">
                     <div class="col-12 col-lg-10">
                         <h1 class="mbr-section-title mbr-fonts-style mbr-white mb-3 display-1">
-                            <strong>{{ group?.name }}</strong></h1>
+                            <strong>{{ group?.name }}</strong>
+                        </h1>
 
-                        <p class="mbr-text mbr-white mbr-fonts-style display-7" v-dompurify-html="group?.description"></p>
+                        <p class="mbr-text mbr-white mbr-fonts-style display-7" v-dompurify-html="group?.description">
+                        </p>
                     </div>
                 </div>
             </div>
@@ -68,10 +70,11 @@
                     <div class="col-12">
                         <div class="card-wrapper">
                             <div class="card-box align-center">
-                                <p class="card-title align-center mbr-black mbr-fonts-style display-7" v-dompurify-html="group?.description"></p>
+                                <p class="card-title align-center mbr-black mbr-fonts-style display-7"
+                                    v-dompurify-html="group?.description"></p>
                             </div>
                         </div>
-                    </div>                    
+                    </div>
                 </div>
             </div>
         </section>
@@ -79,10 +82,21 @@
 </template>
 
 <script setup>
-    defineProps({
+    const props = defineProps({
         group: {
             type: Object,
             required: true,
         },
     })
+
+const backgroundImage = computed(() => {
+  const image = props.group?.image
+
+  if (image?.filename_disk) {
+    return `${$directus.url}assets/${image.filename_disk}`
+  }
+
+  // fallback image from /assets
+  return new URL('@/assets/images/background2.jpg', import.meta.url).href
+})
 </script>

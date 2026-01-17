@@ -71,6 +71,7 @@ export default defineNuxtConfig({
     'assets/mobirise/css/mbr-additional.css',
     //'@fortawesome/fontawesome-svg-core/styles.css',
     'assets/styles/dashboard.css',
+    'assets/styles/main.css',
     'assets/styles/mobile.css',
     'assets/styles/styles.css',
   ],
@@ -86,8 +87,16 @@ export default defineNuxtConfig({
     '@nuxtjs/i18n',
     "nuxt-security",
     '@nuxtjs/seo',
-    'nuxt-toast'
+    '@nuxtjs/turnstile',
+    'nuxt-toast',
+    '@formkit/nuxt'
   ],
+
+  formkit: {
+    // Experimental support for auto loading (see note):
+    autoImport: true,
+    configFile: './config/formkit.config.ts',
+  },
 
   security: {
     headers: {
@@ -125,7 +134,8 @@ export default defineNuxtConfig({
     defaultLocale: "en-GB",
     detectBrowserLanguage: false,
     langDir: "./src/langs/",
-    vueI18n: "./config",
+    vueI18n: "./config/i18n.config.ts",
+    baseUrl: process.env.NUXT_APP_URL,
     locales: [{
         code: "en-GB",
         language: "en-GB",
@@ -163,6 +173,11 @@ export default defineNuxtConfig({
       // console.log(`\n`)
     }
   },
+
+  turnstile: {
+    siteKey: process.env.NUXT_PUBLIC_TURNSTILE_SITE_KEY || '',
+  },
+
   runtimeConfig: generateRuntimeConfig(),
 
   image: {
@@ -201,6 +216,13 @@ export default defineNuxtConfig({
         password: process.env.REDIS_PASSWORD || ''
       }
     },
+    externals: {
+      external: [
+        '@prisma/client',
+        '.prisma',
+        'prisma/generated'
+      ]
+    }
   },
   $production: {
     build: {

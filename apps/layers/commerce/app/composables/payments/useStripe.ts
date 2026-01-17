@@ -43,7 +43,7 @@ export default function useStripe() {
 				sessionId: session.id,
 			});
 		} catch (error) {
-			toast.add({
+			toast.show({
 				id: 'stripe-checkout-error',
 				title: 'Oops! Something went wrong.',
 				description: (error as any).data.message ?? 'An unexpected error occurred.',
@@ -69,7 +69,7 @@ export default function useStripe() {
 
 			window.location.href = portalSession.url;
 		} catch (error) {
-			toast.add({
+			toast.show({
 				id: 'stripe-portal-error',
 				title: 'Oops! Something went wrong.',
 				description: (error as any).data.message ?? 'An unexpected error occurred.',

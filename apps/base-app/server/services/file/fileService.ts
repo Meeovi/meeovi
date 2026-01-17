@@ -2,12 +2,10 @@ import type { Buffer } from 'node:buffer'
 import type { StorageProvider } from './types'
 import { extname } from 'node:path'
 import { format } from 'date-fns'
-import { and, desc, eq } from 'drizzle-orm'
 import { v7 as uuidv7 } from 'uuid'
-import { file as fileTable } from '../../database/schema/file'
 import { logAuditEvent } from '../../utils/auditLogger'
 import { useRuntimeConfig, createError } from '#imports'
-import { useDB } from '../../utils/db'
+import { prisma } from '../../utils/db'
 import { formatFileSize } from '../../../shared/utils/format'
 
 type FileRecord = {
@@ -77,7 +75,6 @@ export class FileService {
     ipAddress?: string,
     userAgent?: string
   ): Promise<FileRecord> {
-    const db = await useDB()
     const fileId = uuidv7()
     const fileName = this.generateFileName(originalName)
     const fileType = getFileTypeFromMimeType(mimeType)
@@ -87,25 +84,20 @@ export class FileService {
 
       const fileData = {
         id: fileId,
-        originalName,
-        fileName,
-        mimeType,
-        fileType,
-        size: fileBuffer.length,
-        path,
-        url,
-        storageProvider: this.storage.name,
-        uploadedBy,
-        isActive: true
+        filename_download: originalName,
+        filename_disk: fileName,
+        type: mimeType,
+        description: fileType,
+        filesize: BigInt(fileBuffer.length) as any,
+        location: path,
+        url: url ?? null,
+        storage: this.storage.name,
+        uploaded_by: uploadedBy ?? null,
+        is_public: true
       }
 
-      const [fileRecord] = await db.insert(fileTable).values(fileData).returning()
-      if (!fileRecord) {
-        throw createError({
-          statusCode: 500,
-          message: 'Failed to create file record'
-        })
-      }
+      const fileRecord = await prisma.directus_files.create({ data: fileData as any })
+      if (!fileRecord) throw createError({ statusCode: 500, message: 'Failed to create file record' })
 
       await logAuditEvent({
         userId: uploadedBy,
@@ -147,17 +139,15 @@ export class FileService {
   }
 
   async getFile(id: string): Promise<FileRecord | null> {
-    const db = await useDB()
     try {
-      const [fileRecord] = await db.select().from(fileTable).where(eq(fileTable.id, id)).limit(1)
-      return fileRecord || null
+      const fileRecord = await prisma.directus_files.findUnique({ where: { id } })
+      return (fileRecord as any) || null
     } catch {
       return null
     }
   }
 
   async deleteFile(id: string, userId?: string, ipAddress?: string, userAgent?: string): Promise<boolean> {
-    const db = await useDB()
     const file = await this.getFile(id)
 
     if (!file) {
@@ -170,7 +160,7 @@ export class FileService {
       console.error('Failed to delete file from storage:', error)
     }
 
-    await db.delete(fileTable).where(eq(fileTable.id, id))
+    await prisma.directus_files.delete({ where: { id } })
 
     await logAuditEvent({
       userId,
@@ -193,12 +183,6 @@ export class FileService {
   }
 
   async getFilesByUser(userId: string, limit = 50, offset = 0): Promise<FileRecord[]> {
-    const db = await useDB()
-    return await db.select()
-      .from(fileTable)
-      .where(and(eq(fileTable.uploadedBy, userId), eq(fileTable.isActive, true)))
-      .orderBy(desc(fileTable.createdAt))
-      .limit(limit)
-      .offset(offset)
+    return await prisma.directus_files.findMany({ where: { uploaded_by: userId, is_public: true }, take: limit, skip: offset, orderBy: { uploaded_on: 'desc' } }) as any
   }
 }

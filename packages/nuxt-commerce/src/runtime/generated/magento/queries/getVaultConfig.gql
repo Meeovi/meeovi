@@ -1,8 +1,0 @@
-query getVaultConfig{
-    getVaultConfig{
-        credit_card{
-            is_vault_enabled
-            three_ds_mode
-        }
-    }
-}

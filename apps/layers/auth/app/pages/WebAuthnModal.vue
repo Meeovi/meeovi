@@ -37,7 +37,7 @@
       })
       .catch((err) => {
         console.log(err)
-        toast.add({
+        toast.show({
           color: 'error',
           title: err.data?.message || err.message,
         })
@@ -55,7 +55,7 @@
       })
       .catch((err) => {
         console.log(err)
-        toast.add({
+        toast.show({
           color: 'error',
           title: err.data?.message || err.message,
         })

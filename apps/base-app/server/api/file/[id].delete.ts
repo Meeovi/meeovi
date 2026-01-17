@@ -27,11 +27,9 @@ export default defineEventHandler(async (event) => {
     })
   }
 
-  if (file.uploadedBy !== user.id && user.role !== 'admin') {
-    throw createError({
-      statusCode: 403,
-      statusMessage: 'Access denied'
-    })
+  const fileOwner = (file as any).uploaded_by ?? (file as any).uploadedBy
+  if (fileOwner !== user.id && user.role !== 'admin') {
+    throw createError({ statusCode: 403, statusMessage: 'Access denied' })
   }
 
   const deleted = await fileService.deleteFile(fileId)
