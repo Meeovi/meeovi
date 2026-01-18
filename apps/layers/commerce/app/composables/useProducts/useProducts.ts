@@ -1,8 +1,11 @@
 import { toRefs } from '@vueuse/shared';
+import { computed } from 'vue';
+import type { Ref } from 'vue';
 import { FetchProducts, UseProductsReturn, UseProductsState } from './types';
 import { useSdk } from '../../sdk';
 import { useAsyncData, useState } from 'nuxt/app';
 import { useHandleError } from '../useHandleError';
+import type { Maybe } from '@vue-storefront/unified-data-model';
 
 /**
  * @description Composable for managing products.
@@ -25,9 +28,9 @@ export const useProducts: UseProductsReturn = () => {
     state.value.loading = true;
     const { data, error } = await useAsyncData(useSdk().commerce.getProducts);
     useHandleError(error.value);
-    state.value.data = data.value;
+    state.value.data = data.value as unknown as UseProductsState['data'];
     state.value.loading = false;
-    return data;
+    return computed(() => state.value.data) as unknown as Ref<UseProductsState['data']>;
   };
 
   return {

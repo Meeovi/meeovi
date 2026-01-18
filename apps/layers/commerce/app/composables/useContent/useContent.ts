@@ -25,8 +25,9 @@ export const useContent: UseContentReturn = (url) => {
   const getContent: GetContent = async () => {
     state.value.loading = true;
     try {
-      const { data, error } = await useAsyncData(() => useSdk().commerce.getContent({ url }));
-      useHandleError(error.value);
+      const result = await useAsyncData(() => useSdk().commerce.getContent({ url }));
+      const { data, error } = result as unknown as { data: Awaited<ReturnType<GetContent>>; error: any };
+      useHandleError(error?.value ?? error);
       state.value.data = data.value;
       return data;
     } catch (error) {

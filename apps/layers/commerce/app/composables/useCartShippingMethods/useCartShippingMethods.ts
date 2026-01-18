@@ -1,4 +1,7 @@
 import { toRefs } from '@vueuse/shared';
+import { computed } from 'vue';
+import type { Ref } from 'vue';
+import type { Maybe, SfShippingMethods } from '@vue-storefront/unified-data-model';
 import type {
   UseCartShippingMethodsState,
   UseCartShippingMethodsReturn,
@@ -28,11 +31,12 @@ export const useCartShippingMethods: UseCartShippingMethodsReturn = () => {
 
   const getShippingMethods: GetShippingMethods = async () => {
     state.value.loading = true;
-    const { data, error } = await useAsyncData(() => useSdk().commerce.getShippingMethods());
+    const { data, error } = await useAsyncData<any>(() => useSdk().commerce.getShippingMethods());
     useHandleError(error.value);
-    state.value.data = data.value;
+    const result = (data.value && (data.value as any).methods) ? data.value : { methods: [] };
+    state.value.data = result as any;
     state.value.loading = false;
-    return data;
+    return computed(() => state.value.data) as unknown as Ref<Maybe<SfShippingMethods>>;
   };
 
   return {

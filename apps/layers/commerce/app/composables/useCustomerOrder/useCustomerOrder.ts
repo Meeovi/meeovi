@@ -53,7 +53,7 @@ export const useCustomerOrder: UseCustomerOrderReturn = (id) => {
     useHandleError(error.value);
     state.value.data = data.value;
     state.value.loading = false;
-    return data;
+    return data as unknown as ReturnType<FetchCustomerOrder>;
   };
 
   return {

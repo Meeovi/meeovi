@@ -1,4 +1,6 @@
 import { toRefs } from '@vueuse/shared';
+import { computed } from 'vue';
+import type { Ref } from 'vue';
 import type {
   UseCustomerReturnsReturn,
   UseCustomerReturnsState,
@@ -29,7 +31,7 @@ export const useCustomerReturns: UseCustomerReturnsReturn = () => {
     useHandleError(error.value);
     state.value.data = data.value;
     state.value.loading = false;
-    return data;
+    return computed(() => state.value.data) as unknown as Ref<unknown[] | null>;
   };
 
   return {

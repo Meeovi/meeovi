@@ -1,5 +1,5 @@
-/// <reference types="@nuxtjs/tailwindcss" />
 /// <reference types="@nuxt/image" />
+/// <reference types="@nuxtjs/tailwindcss" />
 /// <reference types="@storefront-ui/nuxt" />
 /// <reference types="vuetify-nuxt-module" />
 /// <reference types="@pinia/nuxt" />

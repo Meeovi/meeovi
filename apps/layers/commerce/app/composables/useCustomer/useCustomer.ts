@@ -1,4 +1,7 @@
 import { toRefs } from '@vueuse/shared';
+import { computed } from 'vue';
+import type { Ref } from 'vue';
+import type { Maybe, SfCustomer } from '@vue-storefront/unified-data-model';
 import type { UseCustomerReturn, UseCustomerState, FetchCustomer } from './types';
 import { useSdk } from '../../sdk';
 import { useAsyncData, useState } from 'nuxt/app';
@@ -22,11 +25,11 @@ export const useCustomer: UseCustomerReturn = () => {
    */
   const fetchCustomer: FetchCustomer = async () => {
     state.value.loading = true;
-    const { data, error } = await useAsyncData(() => useSdk().commerce.getCustomer());
+    const { data, error } = await useAsyncData<UseCustomerState['data']>(() => useSdk().commerce.getCustomer());
     useHandleError(error.value);
     state.value.data = data.value;
     state.value.loading = false;
-    return data;
+    return computed(() => state.value.data) as unknown as Ref<Maybe<SfCustomer>>;
   };
 
   return {

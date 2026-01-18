@@ -1,4 +1,5 @@
 import { SfShippingMethods, Maybe } from '@vue-storefront/unified-data-model';
+import type { Ref } from 'vue';
 
 export interface UseCartShippingMethodsState {
   data: Maybe<SfShippingMethods>;

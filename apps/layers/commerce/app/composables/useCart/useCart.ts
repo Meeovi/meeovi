@@ -4,6 +4,7 @@ import type { UseCartReturn, UseCartState, FetchCard } from './types';
 import { useSdk } from '../../sdk';
 import { useAsyncData, useState } from 'nuxt/app';
 import { useHandleError } from '../useHandleError';
+import { ref } from 'vue';
 
 /**
  * @description Composable for managing cart.
@@ -28,7 +29,8 @@ export const useCart: UseCartReturn = () => {
       const { data, error } = await useAsyncData<SfCart>(() => useSdk().commerce.getCart());
       useHandleError(error.value);
       state.value.data = data.value;
-      return data;
+      // wrap the returned ref into our Vue ref to avoid cross-package Ref mismatch
+      return ref(data.value);
     } catch (error) {
       throw new Error(error as string);
     } finally {

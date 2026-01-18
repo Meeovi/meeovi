@@ -1,4 +1,7 @@
 import { toRefs } from '@vueuse/shared';
+import { computed } from 'vue';
+import type { Ref } from 'vue';
+import type { Maybe, SfProduct } from '@vue-storefront/unified-data-model';
 import type { UseProductReturn, UseProductState, FetchProduct } from './types';
 import { useSdk } from '../../sdk';
 import { useAsyncData, useState } from 'nuxt/app';
@@ -26,9 +29,9 @@ export const useProduct: UseProductReturn = (slug) => {
     state.value.loading = true;
     const { data, error } = await useAsyncData(() => useSdk().commerce.getProduct({ slug }));
     useHandleError(error.value);
-    state.value.data = data.value;
+    state.value.data = data.value as unknown as Maybe<SfProduct>;
     state.value.loading = false;
-    return data;
+    return computed(() => state.value.data) as unknown as Ref<Maybe<SfProduct>>;
   };
 
   return {

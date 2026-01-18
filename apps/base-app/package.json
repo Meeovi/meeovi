@@ -65,6 +65,7 @@
       "@searchkit/instantsearch-client": "^4.14.1",
       "@searchkit/sdk": "^3.0.0",
       "@storefront-ui/nuxt": "latest",
+      "@vue-storefront/unified-data-model": "^3.0.0",
       "@vue/apollo-composable": "^4.2.2",
       "@vueuse/motion": "^3.0.3",
       "aws4fetch": "^1.0.20",

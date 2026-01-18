@@ -7,7 +7,7 @@
 import type { RuntimeConfig } from 'nuxt/schema'
 import type { H3Event } from 'h3'
 import type { LogObject } from 'consola'
-import type { NuxtIslandContext, NuxtIslandResponse, NuxtRenderHTMLContext } from '#imports'
+import type { NuxtIslandContext, NuxtIslandResponse, NuxtRenderHTMLContext } from 'nuxt/app'
 
 declare module 'nitropack' {
   interface NitroRuntimeConfigApp {

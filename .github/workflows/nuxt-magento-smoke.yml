@@ -1,0 +1,26 @@
+name: nuxt-magento smoke & typecheck
+
+on:
+  push:
+    paths:
+      - 'packages/nuxt-magento/**'
+  pull_request:
+    paths:
+      - 'packages/nuxt-magento/**'
+
+jobs:
+  smoke-and-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Run smoke runner (no installs)
+        run: node packages/nuxt-magento/scripts/run-smoke.cjs
+
+      - name: Run TypeScript check for package
+        run: npx -y typescript tsc --noEmit -p packages/nuxt-magento/tsconfig.json

@@ -1,4 +1,7 @@
 import { toRefs } from '@vueuse/shared';
+import { computed } from 'vue';
+import type { Ref } from 'vue';
+import type { Maybe, SfAddress } from '@vue-storefront/unified-data-model';
 import type {
   UseCustomerAddressReturn,
   UseCustomerAddressState,
@@ -42,7 +45,7 @@ export const useCustomerAddress: UseCustomerAddressReturn = () => {
     useHandleError(error.value);
     state.value.data = data.value;
     state.value.loading = false;
-    return data;
+    return computed(() => state.value.data) as unknown as Ref<Maybe<SfAddress>>;
   };
 
   return {

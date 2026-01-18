@@ -1,5 +1,5 @@
 import useHead from "../modules/vue-head/composables/useHead";
-import { useAppConfig } from "#app";
+import { useAppConfig } from "nuxt/app";
 
 /**
  * Composable for setting the page title.

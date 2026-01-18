@@ -1,10 +1,15 @@
 import { toRefs } from '@vueuse/shared';
+import { computed } from 'vue';
+import type { Ref } from 'vue';
+import type { Maybe, SfProductReview } from '@vue-storefront/unified-data-model';
 import type {
   UseProductReviews,
   UseProductReviewsState,
   FetchProductReviews,
 } from './types';
 import { useSdk } from '../../sdk';
+import { useAsyncData, useState } from 'nuxt/app';
+import { useHandleError } from '../useHandleError';
 
 /**
  * @description Composable managing product reviews data
@@ -28,9 +33,9 @@ export const useProductReviews: UseProductReviews = (slug) => {
     state.value.loading = true;
     const { data, error } = await useAsyncData(() => useSdk().commerce.getProductReviews({ slug }));
     useHandleError(error.value);
-    state.value.data = data.value;
+    state.value.data = data.value as unknown as Maybe<SfProductReview[]>;
     state.value.loading = false;
-    return data;
+    return computed(() => state.value.data) as unknown as Ref<Maybe<SfProductReview[]>>;
   };
 
   return {
